@@ -1,0 +1,70 @@
+{
+  "name": "963 Running Club — Run Beyond Limits",
+  "short_name": "963 Run",
+  "description": "963 Running Club — an elite running community blending world-class coaching, science, and an unbreakable team spirit.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["sports", "fitness", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Upcoming Events",
+      "short_name": "Events",
+      "url": "/events?source=pwa",
+      "description": "View upcoming races and club events"
+    },
+    {
+      "name": "Gallery",
+      "short_name": "Gallery",
+      "url": "/gallery?source=pwa",
+      "description": "Browse club photos"
+    },
+    {
+      "name": "Products",
+      "short_name": "Shop",
+      "url": "/products?source=pwa",
+      "description": "Official club merchandise"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}

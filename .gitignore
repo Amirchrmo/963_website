@@ -1,0 +1,92 @@
+# ─────────────────────────────────────────────────────────────
+# Dependencies
+# ─────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+.yarn/build-integrity.json
+
+# ─────────────────────────────────────────────────────────────
+# Testing & coverage
+# ─────────────────────────────────────────────────────────────
+coverage/
+
+# ─────────────────────────────────────────────────────────────
+# Next.js build output
+# ─────────────────────────────────────────────────────────────
+.next/
+out/
+build/
+dist/
+dist-ssr/
+
+# Next.js generated (local) type declarations & build info
+next-env.d.ts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# ─────────────────────────────────────────────────────────────
+# Vite (legacy template leftovers — harmless if present)
+# ─────────────────────────────────────────────────────────────
+.vite/
+
+# ─────────────────────────────────────────────────────────────
+# Debug / profiling
+# ─────────────────────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+*.log
+
+# ─────────────────────────────────────────────────────────────
+# Environment variables / secrets
+# ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.local
+
+# Secrets / credentials — never commit
+.sshpw
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ─────────────────────────────────────────────────────────────
+# Editor / IDE
+# ─────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ─────────────────────────────────────────────────────────────
+# OS junk
+# ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ─────────────────────────────────────────────────────────────
+# Misc caches & temp
+# ─────────────────────────────────────────────────────────────
+.cache/
+.temp/
+.tmp/
+*.tsbuildinfo
