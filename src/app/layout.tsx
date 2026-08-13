@@ -29,7 +29,7 @@ const fa = localFont({
 
 const SITE = {
   name: '963 Running Club',
-  url: 'https://963run.com',
+  url: 'https://runningclub.ir',
   description:
     '963 Running Club — an elite running community blending world-class coaching, science, and an unbreakable team spirit. Run beyond limits.',
 };

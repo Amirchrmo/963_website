@@ -7,7 +7,9 @@ import { Lightbox } from '@/components/ui/Lightbox';
 import type { ImageItem } from '@/lib/images';
 import { useI18n } from '@/components/providers/I18nProvider';
 
-type Filter = 'all' | 'portrait' | 'landscape';
+type FilterMode = 'category' | 'ratio';
+type RatioFilter = 'all' | 'portrait' | 'landscape';
+type CatFilter = 'all' | 'running' | 'tf';
 type Layout = 'masonry' | 'grid';
 
 interface MasonryGalleryProps {
@@ -16,6 +18,11 @@ interface MasonryGalleryProps {
   columns?: number;
   showControls?: boolean;
   idPrefix?: string;
+  /**
+   * 'category' = All / Running & Physical fitness / T&F (club gallery).
+   * 'ratio'    = All / Portrait / Landscape (champions gallery).
+   */
+  filterMode?: FilterMode;
 }
 
 export function MasonryGallery({
@@ -23,24 +30,39 @@ export function MasonryGallery({
   columns = 3,
   showControls = true,
   idPrefix = 'g',
+  filterMode = 'ratio',
 }: MasonryGalleryProps) {
   const { dict } = useI18n();
-  const [filter, setFilter] = useState<Filter>('all');
+  const [ratioFilter, setRatioFilter] = useState<RatioFilter>('all');
+  const [catFilter, setCatFilter] = useState<CatFilter>('all');
   const [layout, setLayout] = useState<Layout>('masonry');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const filtered = useMemo(() => {
-    if (filter === 'all') return images;
-    return images.filter((img) =>
-      filter === 'portrait' ? img.ratio < 1 : img.ratio >= 1,
-    );
-  }, [images, filter]);
+  const activeFilter = filterMode === 'category' ? catFilter : ratioFilter;
 
-  const filters: { key: Filter; label: string }[] = [
-    { key: 'all', label: dict.gallery.filterAll },
-    { key: 'portrait', label: dict.gallery.filterPortrait },
-    { key: 'landscape', label: dict.gallery.filterLandscape },
-  ];
+  const filtered = useMemo(() => {
+    if (filterMode === 'category') {
+      if (catFilter === 'all') return images;
+      return images.filter((img) => img.category === catFilter);
+    }
+    if (ratioFilter === 'all') return images;
+    return images.filter((img) =>
+      ratioFilter === 'portrait' ? img.ratio < 1 : img.ratio >= 1,
+    );
+  }, [images, filterMode, catFilter, ratioFilter]);
+
+  const filters =
+    filterMode === 'category'
+      ? ([
+          { key: 'all' as CatFilter, label: dict.gallery.filterAll },
+          { key: 'running' as CatFilter, label: dict.gallery.filterRunning },
+          { key: 'tf' as CatFilter, label: dict.gallery.filterTF },
+        ] as { key: CatFilter; label: string }[])
+      : ([
+          { key: 'all' as RatioFilter, label: dict.gallery.filterAll },
+          { key: 'portrait' as RatioFilter, label: dict.gallery.filterPortrait },
+          { key: 'landscape' as RatioFilter, label: dict.gallery.filterLandscape },
+        ] as { key: RatioFilter; label: string }[]);
 
   const colClass =
     columns === 4
@@ -49,11 +71,17 @@ export function MasonryGallery({
 
   // CSS-only filtering: keep every item mounted and transition opacity/scale.
   // This avoids the expensive AnimatePresence + layout re-calculation that
-  // caused tab switching to feel slow on larger galleries.
+  // caused tab switching to feel slow on larger galleries, and keeps the
+  // layout from jumping / causing horizontal overflow when filtering.
   const gridClass =
     layout === 'masonry'
       ? `${colClass} gap-4 [&>*]:mb-4`
       : 'grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4';
+
+  const setFilter = (key: CatFilter | RatioFilter) => {
+    if (filterMode === 'category') setCatFilter(key as CatFilter);
+    else setRatioFilter(key as RatioFilter);
+  };
 
   return (
     <div>
@@ -62,7 +90,7 @@ export function MasonryGallery({
           {/* Filters */}
           <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Filter">
             {filters.map((f) => {
-              const isActive = filter === f.key;
+              const isActive = activeFilter === f.key;
               return (
                 <button
                   key={f.key}

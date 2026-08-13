@@ -80,7 +80,11 @@ export function SmartImage({
         onLoad={() => setLoaded(true)}
         className={`h-full w-full select-none object-cover transition-opacity duration-500 ease-out-expo will-change-[opacity] ${
           loaded ? 'opacity-100' : 'opacity-0'
-        } ${zoomOnHover ? 'transition-transform duration-700 ease-out-expo group-hover:scale-110' : ''} ${imgClassName}`}
+        } ${
+          zoomOnHover
+            ? 'transition-transform duration-700 ease-out-expo [@media(hover:hover)]:group-hover:scale-110'
+            : ''
+        } ${imgClassName}`}
         draggable={false}
       />
     </div>

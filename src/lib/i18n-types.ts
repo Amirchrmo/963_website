@@ -12,6 +12,20 @@ export const localeMeta: Record<Locale, { label: string; dir: 'ltr' | 'rtl'; htm
   fa: { label: 'فارسی', dir: 'rtl', htmlLang: 'fa' },
 };
 
+/** A two-line philosophy / genesis point. */
+export interface GenesisPoint {
+  line1: string;
+  line2: string;
+}
+
+/** A past event with bilingual (Persian-first) description. */
+export interface PastEvent {
+  title: string;
+  name: string;
+  faDesc: string;
+  enDesc: string;
+}
+
 export interface Dictionary {
   nav: {
     home: string;
@@ -88,26 +102,36 @@ export interface Dictionary {
   about: {
     title: string;
     subtitle: string;
-    historyEyebrow: string;
-    historyTitle: string;
-    historyBody: string;
-    missionEyebrow: string;
-    missionTitle: string;
-    missionBody: string;
-    visionEyebrow: string;
-    visionTitle: string;
-    visionBody: string;
-    philosophyEyebrow: string;
-    philosophyTitle: string;
-    philosophyBody: string;
-    philosophyPoints: string[];
-    coachesEyebrow: string;
-    coachesTitle: string;
-    teamEyebrow: string;
-    teamTitle: string;
+    /** Page hero eyebrow. */
+    pageEyebrow: string;
+
+    // Identity (formerly "Our roots" history section)
+    identityEyebrow: string;
+    identityTitle: string;
+    identityLead: string;
+    identityBody: string;
+
+    // Shorabil Lake — bilingual (Persian first, English below)
+    shorabilEyebrow: string;
+    shorabilTitle: string;
+    shorabilFa: string;
+    shorabilEn: string;
+
+    // Takhti Stadium — bilingual (Persian first, English below)
+    takhtiEyebrow: string;
+    takhtiTitle: string;
+    takhtiFa: string;
+    takhtiEn: string;
+
+    // Genesis (formerly "How we train" philosophy)
+    genesisEyebrow: string;
+    genesisTitle: string;
+    genesisPoints: GenesisPoint[];
+
     achievementsEyebrow: string;
     achievementsTitle: string;
     achievements: { title: string; desc: string }[];
+
     timelineEyebrow: string;
     timelineTitle: string;
     timeline: { year: string; title: string; desc: string }[];
@@ -120,14 +144,8 @@ export interface Dictionary {
     pastEyebrow: string;
     pastTitle: string;
     registerCta: string;
-    items: {
-      title: string;
-      location: string;
-      date: string;
-      distance: string;
-      status: string;
-      desc: string;
-    }[];
+    /** Past events rendered with bilingual descriptions + photo galleries. */
+    pastEvents: PastEvent[];
   };
   gallery: {
     clubTitle: string;
@@ -135,6 +153,8 @@ export interface Dictionary {
     champTitle: string;
     champSubtitle: string;
     filterAll: string;
+    filterRunning: string;
+    filterTF: string;
     filterPortrait: string;
     filterLandscape: string;
     filterAction: string;

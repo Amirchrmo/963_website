@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { useI18n } from '@/components/providers/I18nProvider';
 import { PageHero } from '@/components/layout/PageHero';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Reveal } from '@/components/animations/Reveal';
 import { TextReveal } from '@/components/animations/TextReveal';
 import { galleryImages } from '@/lib/images';
@@ -11,100 +9,157 @@ import { galleryImages } from '@/lib/images';
 export default function ContactPage() {
   const { dict } = useI18n();
   const c = dict.contact;
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-    setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-    setTimeout(() => setSent(false), 5000);
-  };
+  const hoursLines = c.hours.split('\n');
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((p) => ({ ...p, [k]: e.target.value }));
-
+  // Core contact info cards (address / phone / email / hours).
   const info = [
     { label: c.addressLabel, value: c.address, icon: <PinIcon /> },
-    { label: c.phoneLabel, value: '+98 21 963 0000', icon: <PhoneIcon /> },
-    { label: c.emailLabel, value: 'hello@963run.com', icon: <MailIcon /> },
-    { label: c.hoursLabel, value: c.hours, icon: <ClockIcon /> },
+    { label: c.phoneLabel, value: '+98 914 030 0963', href: 'tel:+989140300963', icon: <PhoneIcon /> },
+    { label: c.emailLabel, value: '963runningclub@outlook.com', href: 'mailto:963runningclub@outlook.com', icon: <MailIcon /> },
+    {
+      label: c.hoursLabel,
+      value: null,
+      render: () => (
+        <div className="mt-1 flex flex-col gap-1 font-medium">
+          {hoursLines.map((line, i) => (
+            <span key={i} className="text-pretty">{line}</span>
+          ))}
+        </div>
+      ),
+      icon: <ClockIcon />,
+    },
   ];
 
   return (
     <>
       <PageHero
         image={galleryImages[1] ?? galleryImages[0]}
-        eyebrow={c.formTitle}
+        eyebrow={c.infoTitle}
         title={c.title}
         subtitle={c.subtitle}
       />
 
       <section className="section">
-        <div className="container grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          {/* FORM */}
-          <Reveal direction="up">
-            <div className="rounded-3xl glass-panel p-8 md:p-10">
-              <h2 className="text-2xl font-black tracking-tight md:text-3xl">{c.formTitle}</h2>
-              <form onSubmit={onSubmit} className="mt-8 grid gap-5">
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label={c.name}>
-                    <input required value={form.name} onChange={set('name')} className={inputCls} />
-                  </Field>
-                  <Field label={c.email}>
-                    <input type="email" required value={form.email} onChange={set('email')} className={inputCls} />
-                  </Field>
-                </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label={c.phone}>
-                    <input value={form.phone} onChange={set('phone')} className={inputCls} />
-                  </Field>
-                  <Field label={c.subject}>
-                    <input required value={form.subject} onChange={set('subject')} className={inputCls} />
-                  </Field>
-                </div>
-                <Field label={c.message}>
-                  <textarea required rows={5} value={form.message} onChange={set('message')} className={`${inputCls} resize-none`} />
-                </Field>
-                <button
-                  type="submit"
-                  className="btn-solid w-full rounded-2xl px-8 py-4 text-sm font-semibold transition-transform hover:scale-[1.01]"
-                >
-                  {sent ? c.success : c.send}
-                </button>
-              </form>
+        <div className="container">
+          <Reveal direction="up" className="mb-10">
+            <div className="text-center">
+              <span className="eyebrow">{c.infoTitle}</span>
+              <h2 className="heading-display mx-auto mt-3 max-w-2xl text-2xl font-black md:text-3xl">
+                <TextReveal text={c.infoTitle} />
+              </h2>
             </div>
           </Reveal>
 
-          {/* INFO */}
-          <div className="flex flex-col gap-6">
-            <Reveal direction="up" delay={0.1}>
-              <div>
-                <span className="eyebrow">{c.infoTitle}</span>
-                <h2 className="heading-display mt-3 text-2xl font-black md:text-3xl">
-                  <TextReveal text={c.infoTitle} />
-                </h2>
-              </div>
-            </Reveal>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {info.map((item, i) => (
-                <Reveal key={item.label} direction="up" delay={0.15 + i * 0.08}>
-                  <div className="flex h-full flex-col gap-3 rounded-2xl glass-panel p-6">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-ink-900 text-white dark:bg-white dark:text-ink-950">
-                      {item.icon}
-                    </span>
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">{item.label}</div>
-                      <div className="mt-1 font-medium">{item.value}</div>
-                    </div>
+          {/* Core contact cards */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {info.map((item, i) => (
+              <Reveal key={item.label} direction="up" delay={i * 0.08}>
+                <div className="flex h-full flex-col gap-3 rounded-2xl glass-panel p-6">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-ink-900 text-white dark:bg-white dark:text-ink-950">
+                    {item.icon}
+                  </span>
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">{item.label}</div>
+                    {item.render ? (
+                      item.render()
+                    ) : item.href ? (
+                      <a
+                        href={item.href}
+                        className="mt-1 block break-words font-medium transition-colors hover:text-ink-900 dark:hover:text-white"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div className="mt-1 break-words font-medium">{item.value}</div>
+                    )}
                   </div>
-                </Reveal>
-              ))}
-            </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
 
+          {/* Messaging contact cards — Strava / Instagram / Telegram */}
+          <Reveal direction="up" delay={0.1} className="mt-10">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Strava */}
+              <div className="flex h-full flex-col gap-3 rounded-2xl glass-panel p-6">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-ink-900 text-white dark:bg-white dark:text-ink-950">
+                  <StravaIcon />
+                </span>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">{c.stravaTitle}</div>
+                  <a
+                    href={c.stravaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 block break-all font-medium transition-colors hover:text-ink-900 dark:hover:text-white"
+                  >
+                    {c.stravaTitle}
+                  </a>
+                </div>
+                <a
+                  href={c.stravaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-solid mt-2 w-fit rounded-2xl px-6 py-3 text-sm font-semibold"
+                >
+                  {c.stravaTitle}
+                </a>
+              </div>
+
+              {/* Instagram */}
+              <div className="flex h-full flex-col gap-3 rounded-2xl glass-panel p-6">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-ink-900 text-white dark:bg-white dark:text-ink-950">
+                  <IgIcon />
+                </span>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">{c.instagramTitle}</div>
+                  <div className="mt-1 font-medium">{c.instagramHandle}</div>
+                </div>
+                <a
+                  href="https://ig.me/m/963runningclub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-solid mt-2 w-fit rounded-2xl px-6 py-3 text-sm font-semibold"
+                >
+                  {c.sendMessage}
+                </a>
+              </div>
+
+              {/* Telegram */}
+              <div className="flex h-full flex-col gap-3 rounded-2xl glass-panel p-6">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-ink-900 text-white dark:bg-white dark:text-ink-950">
+                  <TelegramIcon />
+                </span>
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">{c.telegramTitle}</div>
+                  <a
+                    href="https://t.me/runwith963"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 block font-medium transition-colors hover:text-ink-900 dark:hover:text-white"
+                  >
+                    {c.telegramHandle}
+                  </a>
+                </div>
+                <a
+                  href="https://t.me/runwith963"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-solid mt-2 w-fit rounded-2xl px-6 py-3 text-sm font-semibold"
+                >
+                  {c.sendMessage}
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Map + Follow Us row */}
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
             {/* LOCAL MAP (fully self-contained — no external requests) */}
-            <Reveal direction="up" delay={0.4}>
-              <div className="relative h-64 overflow-hidden rounded-3xl glass-panel">
+            <Reveal direction="up" delay={0.1}>
+              <div className="relative h-72 overflow-hidden rounded-3xl glass-panel lg:h-full">
                 <LocalMap />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-black/70 to-transparent p-5 text-white">
                   <div className="min-w-0">
@@ -117,14 +172,16 @@ export default function ContactPage() {
             </Reveal>
 
             {/* SOCIALS */}
-            <Reveal direction="up" delay={0.5}>
-              <div className="flex items-center justify-between rounded-2xl glass-panel p-6">
+            <Reveal direction="up" delay={0.2}>
+              <div className="flex h-full flex-col justify-center gap-4 rounded-3xl glass-panel p-6 md:p-8">
                 <span className="font-bold">{c.followTitle}</span>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {socials.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={s.label}
                       className="grid h-10 w-10 place-items-center rounded-full bg-ink-900/5 transition-colors hover:bg-ink-900 hover:text-white dark:bg-white/10 dark:hover:bg-white dark:hover:text-ink-950"
                     >
@@ -138,18 +195,6 @@ export default function ContactPage() {
         </div>
       </section>
     </>
-  );
-}
-
-const inputCls =
-  'w-full rounded-2xl border border-ink-900/10 bg-ink-50/60 px-5 py-3.5 text-sm outline-none transition-all focus:ring-2 focus:ring-ink-900/30 dark:border-white/10 dark:bg-ink-900/50 dark:focus:ring-white/30';
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="mb-2 block text-xs font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">{label}</span>
-      {children}
-    </label>
   );
 }
 
@@ -181,34 +226,6 @@ function ClockIcon() {
     </svg>
   );
 }
-
-const socials = [
-  { label: 'Instagram', href: 'https://instagram.com', icon: <IgIcon /> },
-  { label: 'X', href: 'https://x.com', icon: <XIcon /> },
-  { label: 'YouTube', href: 'https://youtube.com', icon: <YtIcon /> },
-  { label: 'Strava', href: 'https://strava.com', icon: <StravaIcon /> },
-];
-function IgIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-    </svg>
-  );
-}
-function XIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-    </svg>
-  );
-}
-function YtIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" /><path d="m9.75 15.02 5.75-3.27-5.75-3.27z" fill="currentColor" />
-    </svg>
-  );
-}
 function StravaIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -216,11 +233,32 @@ function StravaIcon() {
     </svg>
   );
 }
+function IgIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+function TelegramIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M21.94 4.6 18.9 19.05c-.23 1.01-.83 1.26-1.68.79l-4.64-3.42-2.24 2.16c-.25.25-.46.46-.94.46l.34-4.73 8.62-7.79c.37-.33-.08-.52-.58-.18L7.46 13.2 2.9 11.77c-.99-.31-1.01-.99.21-1.47l17.86-6.88c.83-.31 1.55.18 1.28 1.18z" />
+    </svg>
+  );
+}
+
+const socials = [
+  { label: 'Instagram', href: 'https://instagram.com/963runningclub', icon: <IgIcon /> },
+  { label: 'Telegram', href: 'https://t.me/runwith963', icon: <TelegramIcon /> },
+  { label: 'Strava', href: 'https://strava.app.link/6Re7E7g1v5b', icon: <StravaIcon /> },
+];
 
 /**
  * Fully self-contained, offline-capable decorative map panel.
- * Renders a stylized street-grid + gridlines with a pulsing location pin.
- * No external tiles, no network requests — adapts to light/dark theme.
+ * Renders a stylized lake + street-grid with a pulsing location pin over
+ * Shorabil Lake, Ardebil. No external tiles, no network requests — adapts
+ * to light/dark theme.
  */
 function LocalMap() {
   return (
@@ -229,13 +267,18 @@ function LocalMap() {
       preserveAspectRatio="xMidYMid slice"
       className="h-full w-full"
       role="img"
-      aria-label="963 Running Club location map"
+      aria-label="Shorabil Lake, Ardebil — 963 Running Club location map"
     >
       <defs>
         <linearGradient id="map-bg" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" className="[stop-color:rgb(var(--fg))] [stop-opacity:0.04]" />
           <stop offset="100%" className="[stop-color:rgb(var(--fg))] [stop-opacity:0.08]" />
         </linearGradient>
+        <radialGradient id="lake-fill" cx="0.5" cy="0.5" r="0.6">
+          <stop offset="0%" className="[stop-color:rgb(var(--fg))]" stopOpacity="0.16" />
+          <stop offset="70%" className="[stop-color:rgb(var(--fg))]" stopOpacity="0.08" />
+          <stop offset="100%" className="[stop-color:rgb(var(--fg))]" stopOpacity="0.02" />
+        </radialGradient>
       </defs>
 
       {/* Background */}
@@ -251,19 +294,24 @@ function LocalMap() {
         ))}
       </g>
 
-      {/* Major "roads" */}
+      {/* Shorabil Lake — organic blob */}
+      <path
+        d="M150 70 C 110 75, 90 115, 110 150 C 125 185, 180 200, 220 185 C 265 170, 280 130, 265 100 C 250 70, 195 60, 150 70 Z"
+        fill="url(#lake-fill)"
+        className="[stroke:rgb(var(--fg))]"
+        strokeOpacity="0.22"
+        strokeWidth="2"
+      />
+
+      {/* Major "roads" around the lake */}
       <g fill="none" className="[stroke:rgb(var(--fg))] [stroke-opacity:0.14]" strokeWidth="6" strokeLinecap="round">
-        <path d="M-10 70 Q 120 60 220 140 T 420 120" />
-        <path d="M60 -10 Q 90 120 200 150 T 250 270" />
-        <path d="M-10 200 Q 140 180 210 210 T 420 230" strokeWidth="4" />
-        <path d="M300 -10 Q 280 100 320 160 T 360 270" strokeWidth="4" />
+        <path d="M-10 40 Q 100 40 130 90 T 200 220" />
+        <path d="M300 -10 Q 290 60 260 110 T 280 270" strokeWidth="4" />
+        <path d="M-10 230 Q 120 220 150 180" strokeWidth="4" />
       </g>
 
-      {/* A "park" / green-ish block (kept monochrome to match brand) */}
-      <rect x="250" y="40" width="90" height="60" rx="8" className="fill-[rgb(var(--fg))]" fillOpacity="0.05" />
-
-      {/* Location pin */}
-      <g transform="translate(200 110)">
+      {/* Location pin — on the lake */}
+      <g transform="translate(180 120)">
         <circle r="34" className="fill-[rgb(var(--fg))]" fillOpacity="0.06">
           <animate attributeName="r" values="22;40;22" dur="2.4s" repeatCount="indefinite" />
           <animate attributeName="fill-opacity" values="0.12;0.02;0.12" dur="2.4s" repeatCount="indefinite" />

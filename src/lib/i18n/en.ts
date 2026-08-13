@@ -118,48 +118,79 @@ const en: Dictionary = {
   about: {
     title: 'About the Team',
     subtitle: 'The story, the people, and the philosophy behind 963 Running Club.',
-    historyEyebrow: 'Our roots',
-    historyTitle: 'A decade on the run',
-    historyBody:
-      'Born from a small group of dawn-patrol runners, 963 Running Club has grown into one of the most respected athletic communities in the region. What started on a single neighborhood track now spans multiple training groups, championship titles, and a culture of relentless progress.',
-    missionEyebrow: 'Purpose',
-    missionTitle: 'Our mission',
-    missionBody:
-      'To empower every runner — regardless of starting point — to discover their potential through expert coaching, supportive community, and an environment built for growth.',
-    visionEyebrow: 'Horizon',
-    visionTitle: 'Our vision',
-    visionBody:
-      'A world where running is a lifelong pursuit, accessible and celebrated, where the next generation of champions is trained with both heart and science.',
-    philosophyEyebrow: 'How we train',
-    philosophyTitle: 'The 963 philosophy',
-    philosophyBody:
-      'Training at 963 is built on four pillars that work together to create sustainable, elite-level performance.',
-    philosophyPoints: [
-      'Periodized, science-backed training plans tailored to each athlete.',
-      'Strength, mobility, and recovery integrated into every cycle.',
-      'Data-driven progress tracking with regular performance reviews.',
-      'A team culture that turns individual effort into collective momentum.',
+    pageEyebrow: 'About the Team',
+
+    // Identity (formerly "Our roots")
+    identityEyebrow: 'Identity',
+    identityTitle: 'Who/what is 963',
+    identityLead: 'Three numbers one idea',
+    identityBody:
+      'Tesla believed these numbers hold the key to understanding the universe. Perhaps this is it, the deepest meanings hide within the simplest patterns.\n\nRunning is the oldest sport ever written into our ancestors DNA. Running is an ancient fire the 963 tribe breathes to life every even morning. Every sunrise is a new start. We experience it together.',
+
+    // Shorabil Lake — bilingual (Persian first, then English)
+    shorabilEyebrow: 'Shorabil Lake',
+    shorabilTitle: 'Running & Physical fitness , 7:15am',
+    shorabilFa:
+      'ما در کلاس ها میدویم ، نرمش میکنیم ، بازی میکنیم و هرروز تجربه جدید تمرینی که با جدیدترین شیوه تمرینی روز دنیا طراحی شده رو داریم.\n\nانواع تمرینات : قدرتی ،استقامتی ، سرعتی، پلایومتریک ها ،چابکی ، پله ، شیب ، ری اکشن، ایستگاهی،موبیلیتی و کششی\n\nو دو بار تمرین در طبیعت\nبرنامه ریکاوری در استخر\nو برنامه رژیم غذایی زیر نظر دکتر تغذیه\n\nشروع تمرین : صبح روزهای زوج ساعت ۷:۱۵\nلوکیشن : فضای بینظیر شورابیل\nسطح تمرینات : متوسط ( قابل انجام برای همه)\n\nهدف Team963 تنها تمرینات جسمانی نیست\n\nما هدفمون اینه که سالم زندگی کنیم ،عادت های خوب ایجاد کنیم.\nو با هم تیمی ها معاشرت کنیم و از همدیگه یاد بگیریم.',
+    shorabilEn:
+      'We run, stretch, play, and experience a new training session every day, designed using the latest training methods from around the world.\n\nTraining includes:\nStrength, endurance, speed, plyometrics, agility, stairs, incline, reaction, circuit training, mobility, and stretching.\n\nTwo outdoor training sessions.\nPool recovery program.\nNutrition and diet program supervised by a nutritionist.\n\nTraining starts: 7:15 AM on odd days.\nLocation: The beautiful Shorabil area.\nTraining level: Intermediate (suitable for everyone).\n\nTeam963 is not only about physical training.\n\nOur goal is to live a healthy lifestyle, build good habits, socialize with our teammates, and learn from each other.',
+
+    // Takhti Stadium — bilingual (Persian first, then English)
+    takhtiEyebrow: 'Takhti Stadium',
+    takhtiTitle: '963’s pro “Track&field” team',
+    takhtiFa:
+      'تمرینات دوومیدانی کاران به صورت کاملا حرفه ای در فضای پیست تارتان شامل مواد دوها ، پرش ها و استقامت ها\nاز رده سنی +۱۰ سال\n\nانواع تمرینات دوره آماده سازی: قدرتی ،استقامتی ، سرعتی، پلایومتریک ها ،چابکی ، پله ، شیب ، ری اکشن، ایستگاهی،موبیلیتی و کششی\n\nبرنامه ریکاوری در استخر ، ویزیت دکتر تغذیه\n\nزمان تمرین : همه روزه\n\nلوکیشن : استادیوم تختی، استادیوم رضازاده، استادیوم علی دایی ، شورابیل\n\nسطح تمرینات : آماتور - حرفه ای\n\nهدف Team963 تنها تمرینات جسمانی نیست\n\nما هدفمون اینه که سالم زندگی کنیم ،عادت های خوب ایجاد کنیم.\nو با هم تیمی ها معاشرت کنیم و از همدیگه یاد بگیریم.\n\nاولویت اصلی تیم نظم و توسعه فردی هستش',
+    takhtiEn:
+      'Professional track and field training takes place on tartan tracks and covers running events, jumping events, and endurance disciplines for athletes aged 10+.\n\nPreparation-period training includes:\nStrength, endurance, speed, plyometrics, agility, stairs, incline, reaction, circuit training, mobility, and stretching.\n\nPool recovery program and nutritionist consultation.\n\nTraining time: Every day.\n\nLocations:\nTakhti Stadium, Reza Zadeh Stadium, Ali Daei Stadium, and Shorabil.\n\nTraining level:\nAmateur – Professional\n\nTeam963 is not only about physical training.\n\nOur goal is to live a healthy lifestyle, build good habits, socialize with our teammates, and learn from each other.\n\nThe team\'s main priority is discipline and personal development.',
+
+    // Genesis (formerly "How we train")
+    genesisEyebrow: 'Genesis',
+    genesisTitle: 'The 963 philosophy',
+    genesisPoints: [
+      { line1: 'Respect is built on effort,not speed.', line2: 'No effort is too small.' },
+      { line1: 'No one runs alone.', line2: 'The surest way forward is running together.' },
+      { line1: 'Little, but consistent.', line2: 'Small steps,repeated, become miracles.' },
     ],
-    coachesEyebrow: 'The minds behind the medals',
-    coachesTitle: 'Meet the coaches',
-    teamEyebrow: 'Our crew',
-    teamTitle: 'Team members',
+
     achievementsEyebrow: 'Track record',
     achievementsTitle: 'Achievements',
     achievements: [
-      { title: 'National Marathon Champions', desc: 'Back-to-back team titles across the national circuit.' },
-      { title: 'Regional Cross-Country Cup', desc: 'Three consecutive wins against top regional clubs.' },
-      { title: 'International Representation', desc: 'Members selected for national teams at world events.' },
-      { title: 'Community Impact Award', desc: 'Recognized for grassroots running initiatives.' },
+      {
+        title: 'National champions',
+        desc: 'Developing over ten champions at the national league, national university, and Northwest championship levels.',
+      },
+      {
+        title: 'Other sports champions',
+        desc: 'Developing proper running skills in professional athletes across various sports.',
+      },
+      { title: 'Over 4000 champions', desc: '' },
+      {
+        title: 'Developing highly skilled mountaineers',
+        desc: 'To prepare for summiting peaks above 4,000 meters',
+      },
+      {
+        title: 'Based on positive lifestyle',
+        desc: 'Mental and physical health is the most important factor in human development.',
+      },
     ],
     timelineEyebrow: 'The journey',
     timelineTitle: 'Our timeline',
     timeline: [
-      { year: '2013', title: 'The first mile', desc: '963 Running Club is founded by a group of five passionate runners.' },
-      { year: '2016', title: 'First medal', desc: 'We claim our debut championship title at the regional finals.' },
-      { year: '2019', title: 'Coaching academy', desc: 'Launch of our certified coaching and development program.' },
-      { year: '2022', title: 'Going global', desc: 'Members represent the club at international events.' },
-      { year: '2025', title: '350+ strong', desc: 'Our community surpasses 350 active members across all levels.' },
+      {
+        year: '2024',
+        title: '6:00am Campaign',
+        desc: 'More than forty people run every morning and start their day with love.',
+      },
+      {
+        year: '2025',
+        title: 'By running in nature',
+        desc: 'After the campaign, we took the joy of running out into nature and prepared to hold classes at Shorabil.',
+      },
+      {
+        year: '2026',
+        title: 'In nature and beautiful Shorabil',
+        desc: 'We run and train for the well-being of body and soul.',
+      },
     ],
   },
   events: {
@@ -170,38 +201,22 @@ const en: Dictionary = {
     pastEyebrow: 'In the books',
     pastTitle: 'Past events',
     registerCta: 'Register now',
-    items: [
+    pastEvents: [
       {
-        title: 'City Half Marathon',
-        location: 'Central Park, Tehran',
-        date: 'Oct 12, 2025',
-        distance: '21.1 km',
-        status: 'Open',
-        desc: 'Our flagship half-marathon through the heart of the city. Open to all levels.',
+        title: 'CaveRun',
+        name: 'Kanzagh Village Running Experience',
+        faDesc:
+          'در ادامه مسیر کشف و تجربه، این بار اعضای رانینگ کلاب در روستای تاریخی کنزق، در دامنه‌های کوه سبلان، گرد هم آمدند؛ جایی که طبیعت کوهستانی و میراث تاریخی در کنار هم روایتی منحصربه‌فرد ساخته‌اند.\n\nاین ایونت با ترکیب دویدن در مسیرهای طبیعی، ارتباط با محیط و بازدید از غارها و فضاهای دست‌کند تاریخی کنزق، تجربه‌ای متفاوت از یک تمرین معمولی را رقم زد.\n\nرویدادی برای حرکت، کشف و ساختن خاطرات مشترک در دل طبیعت.',
+        enDesc:
+          'Kanzagh Village Running Experience\n\nAs part of our journey of exploration and movement, our running club gathered in the historic village of Kanzagh, located on the slopes of Mount Sabalan; a place where mountain landscapes and ancient heritage come together to create a unique experience.\n\nThis event combined trail running through natural paths with a visit to the historic caves and hand-carved structures of Kanzagh, creating an experience beyond a regular training session.\n\nA journey of movement, discovery, and shared memories in the heart of nature.',
       },
       {
-        title: 'Trail Run Series',
-        location: 'Alborz Mountains',
-        date: 'Nov 03, 2025',
-        distance: '15 km',
-        status: 'Open',
-        desc: 'A scenic trail challenge with elevation gains and breathtaking views.',
-      },
-      {
-        title: 'New Year 10K',
-        location: 'Azadi Stadium Loop',
-        date: 'Jan 01, 2026',
-        distance: '10 km',
-        status: 'Soon',
-        desc: 'Ring in the new year with a fast, flat, and festive 10K.',
-      },
-      {
-        title: 'Night Relay',
-        location: 'City Boulevard',
-        date: 'Mar 21, 2026',
-        distance: '4 x 5 km',
-        status: 'Soon',
-        desc: 'A four-person night relay under the lights. Teams of all speeds welcome.',
+        title: 'CoffeeRun',
+        name: 'Fandoghlo Coffee Run Experience',
+        faDesc:
+          'در این ایونت، مسیر ما به جنگل‌های بکر فندقلو رسید؛ جایی که تجربه قهوه تخصصی و دویدن در طبیعت در یک فضای مشترک کنار هم قرار گرفتند.\n\nبرنامه با سرو و آشنایی با قهوه تخصصی آغاز شد و سپس با یک ران گروهی در میان مسیرهای سبز و آرامش‌بخش جنگل ادامه یافت.\n\nتجربه‌ای طراحی‌شده برای ترکیب حرکت، طبیعت و ارتباط؛ فراتر از یک تمرین، یک تجربه ماندگار.',
+        enDesc:
+          'Fandoghlo Coffee Run Experience\n\nThis event took us into the pristine landscapes of Fandoghlo Forest, where specialty coffee and trail running came together in a unique outdoor experience.\n\nThe journey began with a specialty coffee session, followed by a group run through the peaceful and scenic forest trails.\n\nAn experience designed to combine movement, nature, and connection — more than a workout, a lasting memory.',
       },
     ],
   },
@@ -211,6 +226,8 @@ const en: Dictionary = {
     champTitle: 'Champions Gallery',
     champSubtitle: 'A showcase of the athletes who carry the 963 name to the podium.',
     filterAll: 'All',
+    filterRunning: 'Running & Physical fitness',
+    filterTF: 'T&F',
     filterPortrait: 'Portrait',
     filterLandscape: 'Landscape',
     filterAction: 'Action',

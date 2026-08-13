@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { SmartImage } from '@/components/ui/SmartImage';
 import { GlassButton } from '@/components/ui/GlassButton';
 import type { ImageItem } from '@/lib/images';
@@ -21,6 +22,16 @@ interface EventCardProps {
   priority?: boolean;
 }
 
+/**
+ * Stable, fully responsive event card.
+ *
+ * - Fixed image aspect ratio (4/5) so card height is deterministic and never
+ *   jumps between items.
+ * - The meta + description live in a separate body panel below the image so the
+ *   card never shifts/clips on hover.
+ * - On touch devices the CTA is always visible (no reliance on hover), and
+ *   hover-driven transforms are disabled to avoid layout shift / overflow.
+ */
 export function EventCard({
   image,
   title,
@@ -35,20 +46,41 @@ export function EventCard({
 }: EventCardProps) {
   const statusText = status ?? '';
   const isOpen = statusText.toLowerCase().includes('open') || statusText.includes('باز');
+
+  // Detect coarse pointer (touch) once on mount to neutralize hover transforms.
+  const [isTouch, setIsTouch] = useState(false);
+  const mounted = useRef(false);
+  useEffect(() => {
+    mounted.current = true;
+    const mq = window.matchMedia('(hover: none), (pointer: coarse)');
+    const apply = () => mounted.current && setIsTouch(mq.matches);
+    apply();
+    mq.addEventListener?.('change', apply);
+    return () => mq.removeEventListener?.('change', apply);
+  }, []);
+
   return (
-    <article className="group relative overflow-hidden rounded-3xl glass-panel transition-all duration-500 hover:-translate-y-1.5 hover:shadow-glass-lg">
-      <div className="relative aspect-[4/5] overflow-hidden">
+    <article
+      className={`group flex h-full flex-col overflow-hidden rounded-3xl glass-panel ${
+        isTouch
+          ? // No transform on touch to prevent layout shift / overflow on mobile.
+            'transition-shadow duration-500'
+          : 'transition-all duration-500 ease-out-expo [@media(hover:hover)]:hover:-translate-y-1.5 [@media(hover:hover)]:hover:shadow-glass-lg'
+      }`}
+    >
+      {/* Image — fixed 4/5 ratio keeps the card height stable across items. */}
+      <div className="relative aspect-[4/5] w-full overflow-hidden">
         <SmartImage
           src={image.thumb}
           alt={title}
           width={image.thumbW}
           height={image.thumbH}
-          zoomOnHover
+          zoomOnHover={!isTouch}
           priority={priority}
           className="h-full w-full"
         />
         {/* gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
         {/* status badge — only when a status is provided */}
         {statusText && (
           <span
@@ -60,32 +92,32 @@ export function EventCard({
             {statusText}
           </span>
         )}
-        {/* content */}
-        <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-          {(date || location) && (
-            <div className="mb-2 flex flex-wrap items-center gap-3 text-xs font-medium text-white/70">
-              {date && (
-                <span className="inline-flex items-center gap-1">
-                  <CalIcon /> {date}
-                </span>
-              )}
-              <span className="inline-flex items-center gap-1">
-                <PinIcon /> {location}
-              </span>
-            </div>
-          )}
-          <h3 className="text-xl font-bold tracking-tight">{title}</h3>
-          <p className="mt-1.5 line-clamp-2 text-sm text-white/70">{desc}</p>
-          <div className="mt-4 flex items-center justify-between gap-3">
-            {distance ? (
-              <span className="text-sm font-semibold text-white">{distance}</span>
-            ) : (
-              <span />
-            )}
-            <GlassButton href={ctaHref} size="sm" variant="glass">
-              {ctaLabel}
-            </GlassButton>
+        {/* location chip overlaid on the image bottom-left */}
+        {location && (
+          <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-md">
+            <PinIcon /> {location}
+          </span>
+        )}
+      </div>
+
+      {/* Body panel — stable, below the image, no hover-driven shift. */}
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        {date && (
+          <div className="mb-2 inline-flex items-center gap-1.5 text-xs font-medium text-ink-400">
+            <CalIcon /> {date}
           </div>
+        )}
+        <h3 className="text-lg font-bold leading-snug tracking-tight sm:text-xl">{title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{desc}</p>
+        <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+          {distance ? (
+            <span className="text-sm font-semibold">{distance}</span>
+          ) : (
+            <span className="hidden sm:inline" />
+          )}
+          <GlassButton href={ctaHref} size="sm" variant="glass">
+            {ctaLabel}
+          </GlassButton>
         </div>
       </div>
     </article>

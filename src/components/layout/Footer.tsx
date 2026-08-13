@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useI18n } from '@/components/providers/I18nProvider';
 import { ThemeLogo } from '@/components/ui/ThemeLogo';
+import { stravaLogo } from '@/lib/images';
 
 export function Footer() {
   const { dict } = useI18n();
@@ -57,7 +58,7 @@ export function Footer() {
             {dict.footer.contactTitle}
           </h3>
           <ul className="space-y-3 text-sm text-ink-600 dark:text-ink-300">
-            <li>Shorabil Lake</li>
+            <li>Located in Ardebil/Shorabil</li>
             <li>
               <a
                 href="mailto:963runningclub@outlook.com"
@@ -75,7 +76,7 @@ export function Footer() {
               </a>
             </li>
           </ul>
-          <div className="mt-5 flex gap-2">
+          <div className="mt-5 flex items-center gap-2">
             {socials.map((s) => (
               <a
                 key={s.name}
@@ -88,6 +89,26 @@ export function Footer() {
                 {s.icon}
               </a>
             ))}
+            {/* Strava — uses the brand PNG logo. */}
+            <a
+              href="https://strava.app.link/iQoyf0Dvk5b"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Strava"
+              className="glass grid h-10 w-10 place-items-center rounded-full transition-transform hover:-translate-y-0.5"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={stravaLogo.src}
+                alt="Strava"
+                width={stravaLogo.width}
+                height={stravaLogo.height}
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                className="h-[18px] w-[18px] object-contain sm:h-5 sm:w-5"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -123,15 +144,6 @@ const socials = [
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M21.94 4.6 18.9 19.05c-.23 1.01-.83 1.26-1.68.79l-4.64-3.42-2.24 2.16c-.25.25-.46.46-.94.46l.34-4.73 8.62-7.79c.37-.33-.08-.52-.58-.18L7.46 13.2 2.9 11.77c-.99-.31-1.01-.99.21-1.47l17.86-6.88c.83-.31 1.55.18 1.28 1.18z" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Strava',
-    href: 'https://strava.app.link/iQoyf0Dvk5b',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M15.387 17.944l-2.089-4.116h-2.945l3.091 6.172L9.35 24h2.947l1.91-3.775L15.854 24h2.945l-4.094-8.029 3.09-6.143h-2.945l-2.089 4.116zm-4.36-12.088L7.18 0H4.235l3.847 7.705z" />
       </svg>
     ),
   },

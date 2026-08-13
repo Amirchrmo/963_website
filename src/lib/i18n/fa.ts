@@ -91,7 +91,7 @@ const fa: Dictionary = {
     testimonials: [
       {
         quote:
-          'عضویت در ۹۶۳ همه‌چیز را تغییر داد. مربی‌گری دقایقی از زمانم کم کرد و جامعه مرا هر روز بازمендарوز بازگرداند.',
+          'عضویت در ۹۶۳ همه‌چیز را تغییر داد. مربی‌گری دقایقی از زمانم کم کرد و جامعه مرا هر روز بازمیندروز بازگرداند.',
         author: 'سارا احمدی',
         role: 'دونده ماراتن',
       },
@@ -118,48 +118,79 @@ const fa: Dictionary = {
   about: {
     title: 'درباره تیم',
     subtitle: 'داستان، افراد و فلسفه پشت باشگاه دوندگی ۹۶۳.',
-    historyEyebrow: 'ریشه‌های ما',
-    historyTitle: 'یک دهه در حال دویدن',
-    historyBody:
-      'باشگاه دوندگی ۹۶۳ از گروه کوچکی از دوندهان سپیده‌دم‌رو زاده شد و اکنون به یکی از محترم‌ترین جوامع ورزشی منطقه تبدیل شده است. آنچه روی یک پیست محلی آغاز شد، امروز گروه‌های تمرینی متعدد، عناوین قهرمانی و فرهنگی از پیشرفت بی‌وقفه را در بر می‌گیرد.',
-    missionEyebrow: 'هدف',
-    missionTitle: 'مأموریت ما',
-    missionBody:
-      'توانمندسازی هر دونده — بدون توجه به نقطه شروع — برای کشف پتانسیل خود از طریق مربی‌گری حرفه‌ای، جامعه‌ی حامی و محیطی ساخته‌شده برای رشد.',
-    visionEyebrow: 'افق',
-    visionTitle: 'چشم‌انداز ما',
-    visionBody:
-      'جهانی که در آن دوندگی پیگیری مادام‌العمر است، در دسترس و ستوده، و نسل بعدی قهرمانان با دل و علم تربیت می‌شود.',
-    philosophyEyebrow: 'چگونه تمرین می‌کنیم',
-    philosophyTitle: 'فلسفه ۹۶۳',
-    philosophyBody:
-      'تمرین در ۹۶۳ بر چهار ستون استوار است که با هم عملکردی پایدار و در سطح نخبگی می‌سازند.',
-    philosophyPoints: [
-      'برنامه‌های تمرینی دوره‌ای و علمی که برای هر ورزشکار شخصی‌سازی شده‌اند.',
-      'قدرت، تحرک‌پذیری و بازیابی در هر دوره ادغام شده‌اند.',
-      'پیگیری پیشرفت مبتنی بر داده با بازبینی‌های منظم عملکرد.',
-      'فرهنگ تیمی که تلاش فردی را به تکانه جمعی تبدیل می‌کند.',
+    pageEyebrow: 'درباره تیم',
+
+    // Identity (formerly "Our roots")
+    identityEyebrow: 'هویت',
+    identityTitle: 'چه کسی/چیزی است ۹۶۳',
+    identityLead: 'سه عدد، یک ایده',
+    identityBody:
+      'تسلا باور داشت این اعداد کلید درک جهان هستی هستند.\nشاید همین باشد، عمیق‌ترین معناها در ساده‌ترین الگوها پنهان‌اند.\n\nدویدن قدیمی‌ترین ورزشی است که در DNA نیاکانمان ثبت شده است.\nدویدن آتشی باستانی است که قبیله ۹۶۳ هر روز زوج آن را زنده می‌کند.\nهر طلوع، آغازی دوباره است. ما آن را با هم تجربه می‌کنیم.',
+
+    // Shorabil Lake — bilingual (Persian first, then English)
+    shorabilEyebrow: 'دریاچه شورابیل',
+    shorabilTitle: 'دویدن و آمادگی جسمانی، ساعت ۷:۱۵ صبح',
+    shorabilFa:
+      'ما در کلاس ها میدویم ، نرمش میکنیم ، بازی میکنیم و هرروز تجربه جدید تمرینی که با جدیدترین شیوه تمرینی روز دنیا طراحی شده رو داریم.\n\nانواع تمرینات : قدرتی ،استقامتی ، سرعتی، پلایومتریک ها ،چابکی ، پله ، شیب ، ری اکشن، ایستگاهی،موبیلیتی و کششی\n\nو دو بار تمرین در طبیعت\nبرنامه ریکاوری در استخر\nو برنامه رژیم غذایی زیر نظر دکتر تغذیه\n\nشروع تمرین : صبح روزهای زوج ساعت ۷:۱۵\nلوکیشن : فضای بینظیر شورابیل\nسطح تمرینات : متوسط ( قابل انجام برای همه)\n\nهدف Team963 تنها تمرینات جسمانی نیست\n\nما هدفمون اینه که سالم زندگی کنیم ،عادت های خوب ایجاد کنیم.\nو با هم تیمی ها معاشرت کنیم و از همدیگه یاد بگیریم.',
+    shorabilEn:
+      'We run, stretch, play, and experience a new training session every day, designed using the latest training methods from around the world.\n\nTraining includes:\nStrength, endurance, speed, plyometrics, agility, stairs, incline, reaction, circuit training, mobility, and stretching.\n\nTwo outdoor training sessions.\nPool recovery program.\nNutrition and diet program supervised by a nutritionist.\n\nTraining starts: 7:15 AM on odd days.\nLocation: The beautiful Shorabil area.\nTraining level: Intermediate (suitable for everyone).\n\nTeam963 is not only about physical training.\n\nOur goal is to live a healthy lifestyle, build good habits, socialize with our teammates, and learn from each other.',
+
+    // Takhti Stadium — bilingual (Persian first, then English)
+    takhtiEyebrow: 'استادیوم تختی',
+    takhtiTitle: 'تیم حرفه‌ای «دوومیدانی» ۹۶۳',
+    takhtiFa:
+      'تمرینات دوومیدانی کاران به صورت کاملا حرفه ای در فضای پیست تارتان شامل مواد دوها ، پرش ها و استقامت ها\nاز رده سنی +۱۰ سال\n\nانواع تمرینات دوره آماده سازی: قدرتی ،استقامتی ، سرعتی، پلایومتریک ها ،چابکی ، پله ، شیب ، ری اکشن، ایستگاهی،موبیلیتی و کششی\n\nبرنامه ریکاوری در استخر ، ویزیت دکتر تغذیه\n\nزمان تمرین : همه روزه\n\nلوکیشن : استادیوم تختی، استادیوم رضازاده، استادیوم علی دایی ، شورابیل\n\nسطح تمرینات : آماتور - حرفه ای\n\nهدف Team963 تنها تمرینات جسمانی نیست\n\nما هدفمون اینه که سالم زندگی کنیم ،عادت های خوب ایجاد کنیم.\nو با هم تیمی ها معاشرت کنیم و از همدیگه یاد بگیریم.\n\nاولویت اصلی تیم نظم و توسعه فردی هستش',
+    takhtiEn:
+      'Professional track and field training takes place on tartan tracks and covers running events, jumping events, and endurance disciplines for athletes aged 10+.\n\nPreparation-period training includes:\nStrength, endurance, speed, plyometrics, agility, stairs, incline, reaction, circuit training, mobility, and stretching.\n\nPool recovery program and nutritionist consultation.\n\nTraining time: Every day.\n\nLocations:\nTakhti Stadium, Reza Zadeh Stadium, Ali Daei Stadium, and Shorabil.\n\nTraining level:\nAmateur – Professional\n\nTeam963 is not only about physical training.\n\nOur goal is to live a healthy lifestyle, build good habits, socialize with our teammates, and learn from each other.\n\nThe team\'s main priority is discipline and personal development.',
+
+    // Genesis (formerly "How we train")
+    genesisEyebrow: 'پیدایش',
+    genesisTitle: 'فلسفه ۹۶۳',
+    genesisPoints: [
+      { line1: 'احترام بر تلاش بنا می‌شود، نه بر سرعت.', line2: 'هیچ تلاشی کم نیست.' },
+      { line1: 'هیچ‌کس تنها نمی‌دود.', line2: 'مطمئن‌ترین راه پیشرفت، دویدن با هم است.' },
+      { line1: 'کم، اما پیوسته.', line2: 'قدم‌های کوچک، تکرارشونده، معجزه می‌شوند.' },
     ],
-    coachesEyebrow: 'ذهن‌های پشت مدال‌ها',
-    coachesTitle: 'با مربیان آشنا شوید',
-    teamEyebrow: 'تیم ما',
-    teamTitle: 'اعضای تیم',
+
     achievementsEyebrow: 'سوابق',
     achievementsTitle: 'دستاوردها',
     achievements: [
-      { title: 'قهرمانان ماراتن ملی', desc: 'عناوین تیمی پشت‌سرهم در سراسر مدار ملی.' },
-      { title: 'جام کراس‌کانتری منطقه‌ای', desc: 'سه پیروزی پیاپی برابر باشگاه‌های برتر منطقه.' },
-      { title: 'نمایندگی بین‌المللی', desc: 'اعضایی که برای تیم‌های ملی در رویدادهای جهانی انتخاب شده‌اند.' },
-      { title: 'جایزه تأثیر اجتماعی', desc: 'به‌خاطر ابتکارات دوندگی پایه‌ای شناخته شده‌ایم.' },
+      {
+        title: 'قهرمانان ملی',
+        desc: 'پرورش بیش از ده قهرمان در سطح لیگ ملی، دانشگاه‌های ملی و مسابقات قهرمانی شمالغرب.',
+      },
+      {
+        title: 'قهرمانان سایر ورزش‌ها',
+        desc: 'پرورش مهارت‌های درست دویدن در ورزشکاران حرفه‌ای در ورزش‌های گوناگون.',
+      },
+      { title: 'بیش از ۴۰۰۰ قهرمان', desc: '' },
+      {
+        title: 'پرورش کوهنوردان بسیار ماهر',
+        desc: 'برای آمادگی صعود قله‌های بالای ۴۰۰۰ متر',
+      },
+      {
+        title: 'بر پایه سبک زندگی مثبت',
+        desc: 'سلامت روان و جسم مهم‌ترین عامل در توسعه انسانی است.',
+      },
     ],
     timelineEyebrow: 'مسیر',
     timelineTitle: 'خط زمانی ما',
     timeline: [
-      { year: '۲۰۱۳', title: 'اولین گام', desc: 'باشگاه دوندگی ۹۶۳ توسط پنج دونده پرشتاب بنیان گذاشته شد.' },
-      { year: '۲۰۱۶', title: 'اولین مدال', desc: 'اولین عنوان قهرمانی خود را در فینال‌های منطقه‌ای کسب کردیم.' },
-      { year: '۲۰۱۹', title: 'آکادمی مربی‌گری', desc: 'راه‌اندازی برنامه توسعه و مربی‌گری دارای مدرک.' },
-      { year: '۲۰۲۲', title: 'جهانی شدن', desc: 'اعضا باشگاه را در رویدادهای بین‌المللی نمایندگی کردند.' },
-      { year: '۲۰۲۵', title: 'بیشتر از ۳۵۰ نفر', desc: 'جامعه ما از ۳۵۰ عضو فعال در همه سطوح عبور کرد.' },
+      {
+        year: '۲۰۲۴',
+        title: 'کمپین ساعت ۶:۰۰ صبح',
+        desc: 'بیش از چهل نفر هر صبح می‌دوند و روزشان را با عشق آغاز می‌کنند.',
+      },
+      {
+        year: '۲۰۲۵',
+        title: 'با دویدن در طبیعت',
+        desc: 'پس از کمپین، شوق دویدن را به طبیعت بردیم و برای برگزاری کلاس‌ها در شورابیل آماده شدیم.',
+      },
+      {
+        year: '۲۰۲۶',
+        title: 'در طبیعت و شورابیل زیبا',
+        desc: 'ما برای سلامتی جسم و جان می‌دویم و تمرین می‌کنیم.',
+      },
     ],
   },
   events: {
@@ -170,38 +201,22 @@ const fa: Dictionary = {
     pastEyebrow: 'ثبت‌شده',
     pastTitle: 'رویدادهای گذشته',
     registerCta: 'همین حالا ثبت‌نام کنید',
-    items: [
+    pastEvents: [
       {
-        title: 'نیمه‌ماراتن شهر',
-        location: 'پارک مرکزی، تهران',
-        date: '۱۲ اکتبر ۲۰۲۵',
-        distance: '۲۱.۱ کیلومتر',
-        status: 'باز',
-        desc: 'نیمه‌ماراتن پرچمدار ما از قلب شهر. برای همه سطوح باز است.',
+        title: 'دونده غار',
+        name: 'تجربه دویدن روستای کنزق',
+        faDesc:
+          'در ادامه مسیر کشف و تجربه، این بار اعضای رانینگ کلاب در روستای تاریخی کنزق، در دامنه‌های کوه سبلان، گرد هم آمدند؛ جایی که طبیعت کوهستانی و میراث تاریخی در کنار هم روایتی منحصربه‌فرد ساخته‌اند.\n\nاین ایونت با ترکیب دویدن در مسیرهای طبیعی، ارتباط با محیط و بازدید از غارها و فضاهای دست‌کند تاریخی کنزق، تجربه‌ای متفاوت از یک تمرین معمولی را رقم زد.\n\nرویدادی برای حرکت، کشف و ساختن خاطرات مشترک در دل طبیعت.',
+        enDesc:
+          'Kanzagh Village Running Experience\n\nAs part of our journey of exploration and movement, our running club gathered in the historic village of Kanzagh, located on the slopes of Mount Sabalan; a place where mountain landscapes and ancient heritage come together to create a unique experience.\n\nThis event combined trail running through natural paths with a visit to the historic caves and hand-carved structures of Kanzagh, creating an experience beyond a regular training session.\n\nA journey of movement, discovery, and shared memories in the heart of nature.',
       },
       {
-        title: 'سری مسیر کوهستانی',
-        location: 'کوه‌های البرز',
-        date: '۳ نوامبر ۲۰۲۵',
-        distance: '۱۵ کیلومتر',
-        status: 'باز',
-        desc: 'چالش مسیر زیبا با شیب‌های مثبت و منظره‌های خیره‌کننده.',
-      },
-      {
-        title: 'ده‌کِی سال نو',
-        location: 'حلقه استادیوم آزادی',
-        date: '۰۱ ژانویه ۲۰۲۶',
-        distance: '۱۰ کیلومتر',
-        status: 'به‌زودی',
-        desc: 'سال نو را با یک ده‌کیِ تند، مسطح و شاد آغاز کنید.',
-      },
-      {
-        title: 'دونده امدادی شبانه',
-        location: 'بلوار شهر',
-        date: '۲۱ مارس ۲۰۲۶',
-        distance: '۴ × ۵ کیلومتر',
-        status: 'به‌زودی',
-        desc: 'دونده امدادی چهارنفره در زیر نورافکن‌ها. تیم‌های هر سرعتی خوشامد است.',
+        title: 'دونده قهوه',
+        name: 'تجربه دونده قهوه فندقلو',
+        faDesc:
+          'در این ایونت، مسیر ما به جنگل‌های بکر فندقلو رسید؛ جایی که تجربه قهوه تخصصی و دویدن در طبیعت در یک فضای مشترک کنار هم قرار گرفتند.\n\nبرنامه با سرو و آشنایی با قهوه تخصصی آغاز شد و سپس با یک ران گروهی در میان مسیرهای سبز و آرامش‌بخش جنگل ادامه یافت.\n\nتجربه‌ای طراحی‌شده برای ترکیب حرکت، طبیعت و ارتباط؛ فراتر از یک تمرین، یک تجربه ماندگار.',
+        enDesc:
+          'Fandoghlo Coffee Run Experience\n\nThis event took us into the pristine landscapes of Fandoghlo Forest, where specialty coffee and trail running came together in a unique outdoor experience.\n\nThe journey began with a specialty coffee session, followed by a group run through the peaceful and scenic forest trails.\n\nAn experience designed to combine movement, nature, and connection — more than a workout, a lasting memory.',
       },
     ],
   },
@@ -211,6 +226,8 @@ const fa: Dictionary = {
     champTitle: 'گالری قهرمانان',
     champSubtitle: 'نمایشی از ورزشکارانی که نام ۹۶۳ را به سکو می‌برند.',
     filterAll: 'همه',
+    filterRunning: 'دویدن و آمادگی جسمانی',
+    filterTF: 'دومیدانی',
     filterPortrait: 'پرتره',
     filterLandscape: 'منظره',
     filterAction: 'اکشن',
@@ -224,7 +241,7 @@ const fa: Dictionary = {
     featuredTitle: 'مجموعه برگزیده',
     items: [
       { name: 'پیراهن مسابقه‌ای پرو ۹۶۳', category: 'پوشاک', price: '۴۹ $', desc: 'پیراهن مسابقه‌ای سبک با فناوری جذب رطوبت.' },
-      { name: 'کتانی ولاسیتی', category: 'کفش', price: '۱۵۹ $', desc: 'کUSH می‌پذیرای واکنش‌گرا برای مایل‌های روزانه و روز مسابقه.' },
+      { name: 'کتانی ولاسیتی', category: 'کفش', price: '۱۵۹ $', desc: 'کوشن واکنش‌گرا برای مایل‌های روزانه و روز مسابقه.' },
       { name: 'کلاه مسابقه‌ای کربنی', category: 'ملزومات', price: '۲۹ $', desc: 'کلاه آیرودینامیک مهندسی‌شده برای عملکرد همه‌فصل.' },
       { name: 'تی‌شرت استقامت', category: 'پوشاک', price: '۳۹ $', desc: 'تی‌شرت نرم و تنفس‌پذیر که با هر گام حرکت می‌کند.' },
     ],

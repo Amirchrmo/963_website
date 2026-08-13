@@ -39,6 +39,11 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* html is the scrolling element on mobile — clip horizontal overflow here
+       too, otherwise iOS Safari ignores body's overflow-x and the marquee /
+       absolutely-positioned decor cause a horizontal scrollbar. */
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
@@ -50,6 +55,7 @@
     transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
       color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-x: hidden;
+    max-width: 100%;
   }
 
   /* Smooth theme transition for color-bearing properties */

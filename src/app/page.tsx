@@ -151,7 +151,7 @@ export default function HomePage() {
             {h.homeEvents.map((ev, i) => (
               <Reveal key={i} direction="up" delay={i * 0.1}>
                 <EventCard
-                  image={homeEventImages[0]}
+                  image={homeEventImages[i] ?? homeEventImages[0]}
                   title={ev.title}
                   location={ev.location}
                   date={ev.date}

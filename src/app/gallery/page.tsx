@@ -21,7 +21,13 @@ export default function ClubGalleryPage() {
 
       <section className="section">
         <div className="container">
-          <MasonryGallery images={galleryImages} columns={3} showControls idPrefix="club" />
+          <MasonryGallery
+            images={galleryImages}
+            columns={3}
+            showControls
+            idPrefix="club"
+            filterMode="category"
+          />
         </div>
       </section>
 

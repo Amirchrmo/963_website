@@ -14,6 +14,9 @@ const config: Config = {
       screens: { '2xl': '1440px' },
     },
     extend: {
+      screens: {
+        xs: '480px',
+      },
       colors: {
         ink: {
           DEFAULT: '#0a0a0a',
