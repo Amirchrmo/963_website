@@ -217,18 +217,21 @@ export const sponsorImages = local('sponsors', [
   { file: 'zirvah.PNG', width: 1181, height: 1181 },
 ]);
 
-/** Map sponsor logos to friendly labels used in the sponsor wall / marquee. */
+/** Friendly labels + Instagram handles for each sponsor logo. */
+const sponsorMeta = [
+  { name: 'Bergeerd', instagram: 'https://instagram.com/bergeerd' },
+  { name: 'Comode', instagram: 'https://instagram.com/comode.concept' },
+  { name: 'FAM Space', instagram: 'https://instagram.com/famspace.co' },
+  { name: "Sara's English Corner", instagram: 'https://instagram.com/sarasenglishcorner' },
+  { name: 'Shayan realestate', instagram: 'https://instagram.com/realstate_shayan_ard' },
+  { name: 'Zirvah', instagram: 'https://instagram.com/zirvah' },
+];
+
+/** Map sponsor logos to friendly labels + Instagram links used in the sponsor wall / marquee. */
 export const sponsors = sponsorImages.map((img, i) => ({
   ...img,
-  name:
-    [
-      'Bergeerd',
-      'Comode',
-      'FAM.space',
-      "Sara's English Corner",
-      'Shayan realestate',
-      'Zirvah',
-    ][i] ?? `Partner ${i + 1}`,
+  name: sponsorMeta[i]?.name ?? `Partner ${i + 1}`,
+  instagram: sponsorMeta[i]?.instagram ?? '#',
 }));
 
 // --- Home page: hero slider -------------------------------------------------

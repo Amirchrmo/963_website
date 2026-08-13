@@ -164,9 +164,8 @@ export interface Dictionary {
   products: {
     title: string;
     subtitle: string;
-    categories: string[];
     featuredTitle: string;
-    items: { name: string; category: string; price: string; desc: string }[];
+    items: { name: string; price: string; desc: string }[];
   };
   sponsors: {
     title: string;
@@ -177,14 +176,6 @@ export interface Dictionary {
   contact: {
     title: string;
     subtitle: string;
-    formTitle: string;
-    name: string;
-    email: string;
-    phone: string;
-    subject: string;
-    message: string;
-    send: string;
-    success: string;
     infoTitle: string;
     addressLabel: string;
     address: string;
@@ -192,6 +183,13 @@ export interface Dictionary {
     emailLabel: string;
     hoursLabel: string;
     hours: string;
+    stravaTitle: string;
+    stravaUrl: string;
+    instagramTitle: string;
+    instagramHandle: string;
+    telegramTitle: string;
+    telegramHandle: string;
+    sendMessage: string;
     followTitle: string;
   };
   footer: {
