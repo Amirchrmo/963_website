@@ -28,6 +28,9 @@ export default function ClubGalleryPage() {
             idPrefix="club"
             filterMode="category"
           />
+          <p className="mt-10 text-center text-xs font-semibold uppercase tracking-[0.2em] text-ink-400 dark:text-ink-500">
+            {g.photoCredit}
+          </p>
         </div>
       </section>
 

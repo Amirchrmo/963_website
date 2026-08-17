@@ -122,7 +122,7 @@ const fa: Dictionary = {
 
     // Identity (formerly "Our roots")
     identityEyebrow: 'هویت',
-    identityTitle: 'چه کسی/چیزی است ۹۶۳',
+    identityTitle: '؟چه کسی/چیزی است ۹۶۳',
     identityLead: 'سه عدد، یک ایده',
     identityBody:
       'تسلا باور داشت این اعداد کلید درک جهان هستی هستند.\nشاید همین باشد، عمیق‌ترین معناها در ساده‌ترین الگوها پنهان‌اند.\n\nدویدن قدیمی‌ترین ورزشی است که در DNA نیاکانمان ثبت شده است.\nدویدن آتشی باستانی است که قبیله ۹۶۳ هر روز زوج آن را زنده می‌کند.\nهر طلوع، آغازی دوباره است. ما آن را با هم تجربه می‌کنیم.',
@@ -163,7 +163,6 @@ const fa: Dictionary = {
         title: 'قهرمانان سایر ورزش‌ها',
         desc: 'پرورش مهارت‌های درست دویدن در ورزشکاران حرفه‌ای در ورزش‌های گوناگون.',
       },
-      { title: 'بیش از ۴۰۰۰ قهرمان', desc: '' },
       {
         title: 'پرورش کوهنوردان بسیار ماهر',
         desc: 'برای آمادگی صعود قله‌های بالای ۴۰۰۰ متر',
@@ -228,6 +227,7 @@ const fa: Dictionary = {
     filterAll: 'همه',
     filterRunning: 'دویدن و آمادگی جسمانی',
     filterTF: 'دومیدانی',
+    photoCredit: 'Photos by FaridMousavi',
     filterPortrait: 'پرتره',
     filterLandscape: 'منظره',
     filterAction: 'اکشن',
@@ -239,12 +239,12 @@ const fa: Dictionary = {
     subtitle: 'تجهیزات ممتازی که توسط دونده‌ها برای دونده‌ها طراحی شده‌اند.',
     featuredTitle: 'مجموعه برگزیده',
     items: [
-      { name: '963 “SIX” white&blue', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '963 “SIX” blue&white', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '963 “T&F” tank top black', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
-      { name: '963 “T&F” tank top white', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
-      { name: '963 “NINE” white&red', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '963 “NINE” black&red', price: '1.690T', desc: 'size 1 and size 2' },
+      { name: '“SIX” white&blue', price: '1.880T', desc: 'size 1 and size 2' },
+      { name: '“SIX” blue&white', price: '1.880T', desc: 'size 1 and size 2' },
+      { name: '“T&F” tank top black', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
+      { name: '“T&F” tank top white', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
+      { name: '“NINE” white&red', price: '1.690T', desc: 'size 1 and size 2' },
+      { name: '“NINE” black&red', price: '1.690T', desc: 'size 1 and size 2' },
     ],
   },
   sponsors: {

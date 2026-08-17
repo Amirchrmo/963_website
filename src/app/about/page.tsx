@@ -80,7 +80,7 @@ export default function AboutPage() {
             <SectionHeading eyebrow={a.shorabilEyebrow} title={a.shorabilTitle} animated={false} />
             {/* Persian */}
             <Reveal direction="up" delay={0.15} className="mt-6 text-base leading-loose md:text-lg">
-              <div className="font-fa text-pretty text-ink-600 dark:text-ink-300" dir="rtl">
+              <div className="font-fa text-pretty font-extrabold tracking-tight text-ink-600 dark:text-ink-300" dir="rtl">
                 <MultiLine text={a.shorabilFa} />
               </div>
             </Reveal>
@@ -106,7 +106,7 @@ export default function AboutPage() {
             <SectionHeading eyebrow={a.takhtiEyebrow} title={a.takhtiTitle} animated={false} />
             {/* Persian */}
             <Reveal direction="up" delay={0.15} className="mt-6 text-base leading-loose md:text-lg">
-              <div className="font-fa text-pretty text-ink-600 dark:text-ink-300" dir="rtl">
+              <div className="font-fa text-pretty font-extrabold tracking-tight text-ink-600 dark:text-ink-300" dir="rtl">
                 <MultiLine text={a.takhtiFa} />
               </div>
             </Reveal>

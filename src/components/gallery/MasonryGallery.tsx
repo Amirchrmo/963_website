@@ -54,9 +54,7 @@ export function MasonryGallery({
   const filters =
     filterMode === 'category'
       ? ([
-          { key: 'all' as CatFilter, label: dict.gallery.filterAll },
           { key: 'running' as CatFilter, label: dict.gallery.filterRunning },
-          { key: 'tf' as CatFilter, label: dict.gallery.filterTF },
         ] as { key: CatFilter; label: string }[])
       : ([
           { key: 'all' as RatioFilter, label: dict.gallery.filterAll },
@@ -79,8 +77,12 @@ export function MasonryGallery({
       : 'grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4';
 
   const setFilter = (key: CatFilter | RatioFilter) => {
-    if (filterMode === 'category') setCatFilter(key as CatFilter);
-    else setRatioFilter(key as RatioFilter);
+    // Category mode has a single option left — clicking it toggles the filter.
+    if (filterMode === 'category') {
+      setCatFilter((prev) => (prev === key ? 'all' : (key as CatFilter)));
+    } else {
+      setRatioFilter(key as RatioFilter);
+    }
   };
 
   return (

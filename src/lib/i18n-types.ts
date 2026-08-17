@@ -155,6 +155,7 @@ export interface Dictionary {
     filterAll: string;
     filterRunning: string;
     filterTF: string;
+    photoCredit: string;
     filterPortrait: string;
     filterLandscape: string;
     filterAction: string;

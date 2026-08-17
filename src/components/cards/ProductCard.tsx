@@ -45,9 +45,9 @@ export function ProductCard({
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-bold leading-snug tracking-tight">{name}</h3>
-          <span className="shrink-0 whitespace-nowrap text-lg font-bold">{price}</span>
+        <div className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1">
+          <h3 className="text-lg font-bold leading-snug tracking-tight sm:whitespace-nowrap">{name}</h3>
+          <span className="ml-auto shrink-0 whitespace-nowrap text-lg font-bold">{price}</span>
         </div>
         <p className="mt-2 text-sm text-ink-500 dark:text-ink-400">{desc}</p>
       </div>

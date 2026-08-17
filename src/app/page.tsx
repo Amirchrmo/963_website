@@ -9,14 +9,12 @@ import { GlassButton } from '@/components/ui/GlassButton';
 import { SmartImage } from '@/components/ui/SmartImage';
 import { Reveal, RevealStagger, revealItem } from '@/components/animations/Reveal';
 import { TextReveal } from '@/components/animations/TextReveal';
-import { EventCard } from '@/components/cards/EventCard';
 import { StatisticCard } from '@/components/cards/StatisticCard';
 import { motion } from 'framer-motion';
 import {
   galleryImages,
   galleryChampImages,
   introCollageImages,
-  homeEventImages,
 } from '@/lib/images';
 
 export default function HomePage() {
@@ -133,39 +131,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== EVENTS PREVIEW ===== */}
-      <section className="section">
-        <div className="container">
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-            <SectionHeading
-              eyebrow={h.eventsEyebrow}
-              title={h.eventsTitle}
-            />
-            <Reveal direction="fade">
-              <GlassButton href="/events" variant="ghost" size="md">
-                {dict.common.viewAll} →
-              </GlassButton>
-            </Reveal>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            {h.homeEvents.map((ev, i) => (
-              <Reveal key={i} direction="up" delay={i * 0.1}>
-                <EventCard
-                  image={homeEventImages[i] ?? homeEventImages[0]}
-                  title={ev.title}
-                  location={ev.location}
-                  date={ev.date}
-                  distance={ev.distance}
-                  desc={ev.desc}
-                  ctaLabel={dict.common.register}
-                  ctaHref="/contact"
-                  priority={i === 0}
-                />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ===== SPONSORS ===== */}
       <SponsorMarquee />

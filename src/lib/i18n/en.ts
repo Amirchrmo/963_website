@@ -122,7 +122,7 @@ const en: Dictionary = {
 
     // Identity (formerly "Our roots")
     identityEyebrow: 'Identity',
-    identityTitle: 'Who/what is 963',
+    identityTitle: '?WHO/WHAT IS 963',
     identityLead: 'Three numbers one idea',
     identityBody:
       'Tesla believed these numbers hold the key to understanding the universe. Perhaps this is it, the deepest meanings hide within the simplest patterns.\n\nRunning is the oldest sport ever written into our ancestors DNA. Running is an ancient fire the 963 tribe breathes to life every even morning. Every sunrise is a new start. We experience it together.',
@@ -163,7 +163,6 @@ const en: Dictionary = {
         title: 'Other sports champions',
         desc: 'Developing proper running skills in professional athletes across various sports.',
       },
-      { title: 'Over 4000 champions', desc: '' },
       {
         title: 'Developing highly skilled mountaineers',
         desc: 'To prepare for summiting peaks above 4,000 meters',
@@ -228,6 +227,7 @@ const en: Dictionary = {
     filterAll: 'All',
     filterRunning: 'Running & Physical fitness',
     filterTF: 'T&F',
+    photoCredit: 'Photos by FaridMousavi',
     filterPortrait: 'Portrait',
     filterLandscape: 'Landscape',
     filterAction: 'Action',
@@ -239,12 +239,12 @@ const en: Dictionary = {
     subtitle: 'Premium gear designed by runners, for runners.',
     featuredTitle: 'Featured collection',
     items: [
-      { name: '963 “SIX” white&blue', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '963 “SIX” blue&white', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '963 “T&F” tank top black', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
-      { name: '963 “T&F” tank top white', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
-      { name: '963 “NINE” white&red', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '963 “NINE” black&red', price: '1.690T', desc: 'size 1 and size 2' },
+      { name: '“SIX” white&blue', price: '1.880T', desc: 'size 1 and size 2' },
+      { name: '“SIX” blue&white', price: '1.880T', desc: 'size 1 and size 2' },
+      { name: '“T&F” tank top black', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
+      { name: '“T&F” tank top white', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
+      { name: '“NINE” white&red', price: '1.690T', desc: 'size 1 and size 2' },
+      { name: '“NINE” black&red', price: '1.690T', desc: 'size 1 and size 2' },
     ],
   },
   sponsors: {
@@ -259,11 +259,11 @@ const en: Dictionary = {
     subtitle: 'Questions about membership, training, or events? Let us talk.',
     infoTitle: 'Club headquarters',
     addressLabel: 'Address',
-    address: 'Shorabil lake, Ardebil, Iran',
+    address: 'Shorabil lake,Ardebil,Iran',
     phoneLabel: 'Phone',
     emailLabel: 'Email',
     hoursLabel: 'Training hours',
-    hours: 'Physical fitness classes: Sat-Mon-Wed 7:15 - 9\nTrack&Field classes: everyday 4-6',
+    hours: 'Physical fitness classes:Sat-Mon-Wed 7:15 - 9\nTrack&Field classes: everyday 4-6',
     stravaTitle: 'Strava',
     stravaUrl: 'https://strava.app.link/6Re7E7g1v5b',
     instagramTitle: 'Instagram',

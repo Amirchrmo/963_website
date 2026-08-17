@@ -47,6 +47,11 @@ export function Footer() {
                 >
                   {l.label}
                 </Link>
+                {l.href === '/gallery' && (
+                  <span className="ms-2 text-sm text-ink-400 dark:text-ink-500">
+                    {dict.gallery.photoCredit}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

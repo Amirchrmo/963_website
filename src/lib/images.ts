@@ -223,8 +223,8 @@ const sponsorMeta = [
   { name: 'Comode', instagram: 'https://instagram.com/comode.concept' },
   { name: 'FAM Space', instagram: 'https://instagram.com/famspace.co' },
   { name: "Sara's English Corner", instagram: 'https://instagram.com/sarasenglishcorner' },
-  { name: 'Shayan realestate', instagram: 'https://instagram.com/realstate_shayan_ard' },
-  { name: 'Zirvah', instagram: 'https://instagram.com/zirvah' },
+  { name: 'Shayan realestate', instagram: 'https://instagram.com/realestate_shayan_ard' },
+  { name: 'Zirvah', instagram: 'https://instagram.com/zirvah_basketballclub' },
 ];
 
 /** Map sponsor logos to friendly labels + Instagram links used in the sponsor wall / marquee. */
