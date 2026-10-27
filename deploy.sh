@@ -3,14 +3,17 @@
 # deploy.sh — Rebuild & update runningclub.ir on the server (frontend-only)
 # ----------------------------------------------------------------------------
 # Run this after ANY code change. It:
-#   1. Reads SSH credentials from .sshpw
+#   1. Connects over SSH (key auth as the deploy user — no passwords)
 #   2. Builds the Next.js static export (out/)
 #   3. Uploads + swaps the new build into /opt/runningclub/web
-#   4. Verifies the deployment over the proxy-net
+#   4. Verifies the deployment through the edge proxy on the server
 #
 # This is a FRONTEND-ONLY deployment. No backend/API/DB is touched.
-# Nginx container, docker-compose, nginx config, NPM proxy host, and SSL
-# certificate are NOT changed — only the static web files are updated.
+# Nginx container, docker-compose, nginx config, edge proxy (/opt/infra) and
+# SSL (ParsPack CDN) are NOT changed — only the static web files are updated.
+#
+# One-time setup: install your SSH key for the deploy user, e.g.
+#   ssh-copy-id arisan@109.122.254.194
 #
 # Usage:
 #   ./deploy.sh            # build + deploy
@@ -21,10 +24,9 @@ set -euo pipefail
 
 # ---------- Config (matches deployment) ----------
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SSHPW_FILE="$PROJECT_DIR/.sshpw"
-SERVER_IP="5.57.39.207"
-SSH_PORT="3939"
-SSH_USER="root"
+SERVER_IP="109.122.254.194"
+SSH_PORT="22"
+SSH_USER="arisan"
 REMOTE_WEB="/opt/runningclub/web"
 REMOTE_CONTAINER="runningclub-nginx"
 HEALTH_DOMAIN="runningclub.ir"
@@ -38,16 +40,12 @@ die()  { echo -e "${RED}✗${NC} $*" >&2; exit 1; }
 
 # ---------- Preflight checks ----------
 command -v npm     >/dev/null || die "npm not found in PATH"
-command -v sshpass >/dev/null || die "sshpass not installed (sudo apt-get install -y sshpass)"
-[ -f "$SSHPW_FILE" ]          || die ".sshpw not found at $SSHPW_FILE"
+command -v ssh     >/dev/null || die "ssh not found in PATH"
 
-# ---------- Parse SSH password from .sshpw (first non-empty line) ----------
-SSH_PW="$(grep -m1 -v '^[[:space:]]*$' "$SSHPW_FILE" | tr -d '\r\n')"
-[ -n "$SSH_PW" ] || die "Could not read password from .sshpw"
-
-# ssh/scp wrapper using the project credentials
-ssh_cmd()  { sshpass -p "$SSH_PW" ssh  -o StrictHostKeyChecking=no -o ConnectTimeout=20 -p "$SSH_PORT" "${SSH_USER}@${SERVER_IP}" "$@"; }
-scp_cmd()  { sshpass -p "$SSH_PW" scp  -C -o StrictHostKeyChecking=no -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -P "$SSH_PORT" "$@"; }
+# ssh/scp wrappers (key auth; BatchMode fails fast instead of prompting)
+ssh_cmd()  { ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 -p "$SSH_PORT" "${SSH_USER}@${SERVER_IP}" "$@"; }
+scp_cmd()  { scp -C -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=15 -o ServerAliveCountMax=4 -P "$SSH_PORT" "$@"; }
+ssh_cmd true 2>/dev/null || die "SSH key login to ${SSH_USER}@${SERVER_IP} failed (run: ssh-copy-id ${SSH_USER}@${SERVER_IP})"
 
 # ---------- Step 1: Build (optional) ----------
 SKIP_BUILD=0
@@ -108,12 +106,13 @@ ssh_cmd "docker ps --filter name=$REMOTE_CONTAINER --format '{{.Status}}' | grep
   || (echo 'container not running'; exit 1)"
 ok "Container is up"
 
-# ---------- Step 6: Health check through proxy-net ----------
-log "Health check via proxy-net…"
-HTTP_CODE="$(ssh_cmd "docker run --rm --network proxy-net curlimages/curl:8.10.1 \
-  -sS -o /dev/null -w '%{http_code}' http://$REMOTE_CONTAINER:80/")"
+# ---------- Step 6: Health check through the edge proxy ----------
+# X-Forwarded-For marks the request as proxied so edge does not 301 to HTTPS.
+log "Health check via edge proxy…"
+HTTP_CODE="$(ssh_cmd "curl -sS -o /dev/null -w '%{http_code}' -H 'Host: $HEALTH_DOMAIN' \
+  -H 'X-Forwarded-For: 127.0.0.1' http://127.0.0.1/")"
 if [ "$HTTP_CODE" = "200" ]; then
-  ok "Internal check: http://$REMOTE_CONTAINER:80/ → HTTP 200"
+  ok "Internal check: edge → $REMOTE_CONTAINER → HTTP 200"
 else
   die "Internal check FAILED: HTTP $HTTP_CODE (rolled back build kept at web.bak)"
 fi

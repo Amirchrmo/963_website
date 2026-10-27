@@ -8,13 +8,11 @@ services:
     volumes:
       - ./web:/usr/share/nginx/html:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    mem_limit: 64m
     networks:
       - proxy-net
-      - runningclub_internal
 
+# proxy-net is created by /opt/infra (edge).
 networks:
   proxy-net:
     external: true
-
-  runningclub_internal:
-    driver: bridge
