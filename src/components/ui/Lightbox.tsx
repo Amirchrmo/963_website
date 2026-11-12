@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { ImageItem } from '@/lib/images';
 
@@ -14,6 +15,8 @@ interface LightboxProps {
 /** Fullscreen image viewer with keyboard nav, swipe, and counter. */
 export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) {
   const reduce = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const open = index !== null;
   const current = index !== null ? images[index] : null;
 
@@ -52,7 +55,10 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
     setTouchX(null);
   };
 
-  return (
+  // Portal to <body>: `position: fixed` would otherwise be trapped by any
+  // ancestor with a transform or backdrop-filter (cards, glass panels).
+  if (!mounted) return null;
+  return createPortal(
     <AnimatePresence>
       {open && current && (
         <motion.div
@@ -117,7 +123,8 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
 
