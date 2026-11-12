@@ -6,6 +6,14 @@
  * and zero per-request image processing. Each item keeps its declared aspect
  * ratio so layouts that rely on it (masonry columns, portrait/landscape filters,
  * CLS-free cards) keep their exact proportions.
+ *
+ * Photos are web-optimized before they are committed: long edge <= 2048px
+ * (full-bleed banners / hero slides: short edge <= 1920px), sRGB, no metadata,
+ * plus a `thumbs/` copy (short edge <= 800px) that grids and cards load.
+ * Some legacy photos keep their original file as `full` where a downscaled
+ * re-encode would cost more bytes; they still get thumbs. `width`/`height`
+ * always describe the real file. `/images/` is cached immutably, so a changed
+ * image needs a new filename.
  */
 
 /** Legacy single-sample export — kept for compatibility (e.g. metadata). */
@@ -76,38 +84,38 @@ function localGallery(folder: string, assets: CategorizedAsset[]): ImageItem[] {
 // --- Gallery (club life / training / racing) -------------------------------
 // `r` = "Running & Physical fitness", `t` = "T&F" (track & field).
 export const galleryImages = localGallery('gallery', [
-  { file: 'IMG_0159.jpg', width: 4032, height: 3024, category: 'running' },
-  { file: 'IMG_0200.jpg', width: 4032, height: 3024, category: 'tf' },
-  { file: 'IMG_0258.jpg', width: 4284, height: 5712, category: 'running' },
-  { file: 'IMG_0263.jpg', width: 4284, height: 5712, category: 'running' },
-  { file: 'IMG_0379.jpg', width: 3024, height: 4032, category: 'tf' },
-  { file: 'IMG_0386.jpg', width: 4284, height: 5712, category: 'running' },
-  { file: 'IMG_0491.jpg', width: 3024, height: 4032, category: 'tf' },
+  { file: 'IMG_0159.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 }, category: 'running' },
+  { file: 'IMG_0200.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 }, category: 'tf' },
+  { file: 'IMG_0258.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_0263.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_0379.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_0386.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_0491.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'tf' },
   { file: 'IMG_0876.jpg', width: 1024, height: 1536, category: 'running' },
-  { file: 'IMG_1170.jpg', width: 4004, height: 5339, category: 'tf' },
-  { file: 'IMG_1294.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_1320.jpg', width: 3024, height: 4032, category: 'tf' },
-  { file: 'IMG_1481.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_1740.jpg', width: 4480, height: 6720, category: 'tf' },
-  { file: 'IMG_1793.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_1794.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_2596.jpg', width: 4032, height: 3024, category: 'tf' },
-  { file: 'IMG_2689.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_2992.jpg', width: 4284, height: 5712, category: 'tf' },
-  { file: 'IMG_3004.jpg', width: 4284, height: 5712, category: 'running' },
-  { file: 'IMG_3016.jpg', width: 3024, height: 4032, category: 'tf' },
-  { file: 'IMG_3265.jpg', width: 4284, height: 5712, category: 'running' },
-  { file: 'IMG_7303.jpg', width: 4284, height: 5712, category: 'tf' },
-  { file: 'IMG_7817.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_7937.jpg', width: 3583, height: 2891, category: 'tf' },
-  { file: 'IMG_8014.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_8386.jpg', width: 2268, height: 4032, category: 'tf' },
-  { file: 'IMG_9063.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_9070.jpg', width: 4032, height: 3024, category: 'tf' },
-  { file: 'IMG_9350.jpg', width: 3024, height: 4032, category: 'running' },
-  { file: 'IMG_9422.jpg', width: 3024, height: 4032, category: 'tf' },
-  { file: 'IMG_9741.jpg', width: 3024, height: 4032, category: 'running' },
-  // Added 2026-11-12 (optimized: full <= 2048px + thumbs/).
+  { file: 'IMG_1170.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_1294.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_1320.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_1481.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_1740.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 }, category: 'tf' },
+  { file: 'IMG_1793.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_1794.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_2596.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 }, category: 'tf' },
+  { file: 'IMG_2689.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_2992.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_3004.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_3016.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_3265.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_7303.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_7817.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_7937.jpg', width: 3583, height: 2891, thumb: { width: 992, height: 800 }, category: 'tf' },
+  { file: 'IMG_8014.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_8386.jpg', width: 2268, height: 4032, thumb: { width: 788, height: 1400 }, category: 'tf' },
+  { file: 'IMG_9063.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_9070.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 }, category: 'tf' },
+  { file: 'IMG_9350.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  { file: 'IMG_9422.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'tf' },
+  { file: 'IMG_9741.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 }, category: 'running' },
+  // Added 2026-11-12.
   { file: 'IMG_5991.jpg', width: 1152, height: 2048, thumb: { width: 788, height: 1400 }, category: 'running' },
   { file: 'IMG_5988.jpg', width: 2048, height: 1152, thumb: { width: 1400, height: 788 }, category: 'running' },
   { file: 'IMG_5989.jpg', width: 1152, height: 2048, thumb: { width: 788, height: 1400 }, category: 'running' },
@@ -128,18 +136,18 @@ export const galleryImages = localGallery('gallery', [
 
 // --- Champions / podium gallery -------------------------------------------
 export const galleryChampImages = local('champ', [
-  { file: 'IMG_0589.jpg', width: 4032, height: 3024 },
-  { file: 'IMG_1011.jpg', width: 3024, height: 4032 },
-  { file: 'IMG_1339.jpg', width: 2560, height: 1920 },
-  { file: 'IMG_1341.jpg', width: 4284, height: 5712 },
-  { file: 'IMG_1470.jpg', width: 4032, height: 3024 },
-  { file: 'IMG_1513.jpg', width: 3024, height: 4032 },
-  { file: 'IMG_1565.jpg', width: 4032, height: 3024 },
-  { file: 'IMG_1593.jpg', width: 3024, height: 4032 },
-  { file: 'IMG_6322.jpg', width: 4284, height: 5712 },
-  { file: 'IMG_9035.jpg', width: 3024, height: 4032 },
-  { file: 'IMG_9144.jpg', width: 2171, height: 3859 },
-  { file: 'IMG_9769.jpg', width: 4032, height: 3024 },
+  { file: 'IMG_0589.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_1011.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_1339.jpg', width: 2560, height: 1920, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_1341.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_1470.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_1513.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_1565.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_1593.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_6322.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_9035.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_9144.jpg', width: 2171, height: 3859, thumb: { width: 788, height: 1400 } },
+  { file: 'IMG_9769.jpg', width: 4032, height: 3024, thumb: { width: 1067, height: 800 } },
   { file: 'IMG_3130.jpg', width: 1037, height: 1348, thumb: { width: 800, height: 1040 } },
   { file: 'IMG_5993.jpg', width: 1072, height: 1714, thumb: { width: 800, height: 1279 } },
 ]);
@@ -155,18 +163,18 @@ export const productImages = local('products', [
 // --- Events ----------------------------------------------------------------
 // General event images (used for hero banners / card imagery).
 export const eventImages = local('events', [
-  { file: 'IMG_0616.jpg', width: 5712, height: 4284 },
-  { file: 'IMG_0665.jpg', width: 4284, height: 5712 },
-  { file: 'IMG_0696.jpg', width: 3024, height: 4032 },
-  { file: 'IMG_0711.jpg', width: 3024, height: 4636 },
-  { file: 'IMG_8950.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_8954.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_8999.jpg', width: 4480, height: 6720 },
-  { file: 'IMG_9002.jpg', width: 4475, height: 2517 },
-  { file: 'IMG_9003.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_9007.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_9016.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_9017.jpg', width: 4480, height: 6720 },
+  { file: 'IMG_0616.jpg', width: 2560, height: 1920, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_0665.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_0696.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_0711.jpg', width: 1336, height: 2048, thumb: { width: 800, height: 1226 } },
+  { file: 'IMG_8950.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_8954.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_8999.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_9002.jpg', width: 2048, height: 1152, thumb: { width: 1400, height: 788 } },
+  { file: 'IMG_9003.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9007.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9016.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9017.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
 ]);
 
 /** Upcoming event — WALK&TALK: card poster + photo rows shown inside the card. */
@@ -186,33 +194,33 @@ export const walkTalkPhotoRows = [walkTalkPhotos.slice(0, 2), walkTalkPhotos.sli
 
 /** Past event #1 — CaveRun (Kanzagh Village). ~10 photos. */
 export const caveRunImages = local('events', [
-  { file: 'IMG_0753.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0757.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0758.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0759.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0760.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0763.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0765.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0766.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0773.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0774.jpg', width: 1706, height: 2560 },
-  { file: 'IMG_0776.jpg', width: 1706, height: 2560 },
+  { file: 'IMG_0753.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0757.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0758.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0759.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0760.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0763.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0765.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0766.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0773.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0774.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_0776.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
 ]);
 
 /** Past event #2 — CoffeeRun (Fandoghlo Forest). ~10 photos. */
 export const coffeeRunImages = local('events', [
-  { file: 'IMG_0616.jpg', width: 5712, height: 4284 },
-  { file: 'IMG_0665.jpg', width: 4284, height: 5712 },
-  { file: 'IMG_0696.jpg', width: 3024, height: 4032 },
-  { file: 'IMG_0711.jpg', width: 3024, height: 4636 },
-  { file: 'IMG_8950.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_8954.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_8999.jpg', width: 4480, height: 6720 },
-  { file: 'IMG_9002.jpg', width: 4475, height: 2517 },
-  { file: 'IMG_9003.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_9007.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_9016.jpg', width: 6720, height: 4480 },
-  { file: 'IMG_9017.jpg', width: 4480, height: 6720 },
+  { file: 'IMG_0616.jpg', width: 2560, height: 1920, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_0665.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_0696.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_0711.jpg', width: 1336, height: 2048, thumb: { width: 800, height: 1226 } },
+  { file: 'IMG_8950.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_8954.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_8999.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_9002.jpg', width: 2048, height: 1152, thumb: { width: 1400, height: 788 } },
+  { file: 'IMG_9003.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9007.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9016.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9017.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
 ]);
 
 /** Past event #3 — Night Run + Coffee (Shorabil, 9pm). */
@@ -244,8 +252,8 @@ export const pastEventCovers = [
 
 // --- Logos -----------------------------------------------------------------
 export const logoImages = local('logos', [
-  { file: 'logo-main-black.PNG', width: 1024, height: 1024 },
-  { file: 'logo-main-white.PNG', width: 1024, height: 1024 },
+  { file: 'logo-main-black.PNG', width: 256, height: 256 },
+  { file: 'logo-main-white.PNG', width: 256, height: 256 },
 ]);
 
 /** Indexed access to the two themed logo marks used by the Header/Footer. */
@@ -261,11 +269,11 @@ export const stravaLogo = {
 
 // --- Sponsors --------------------------------------------------------------
 export const sponsorImages = local('sponsors', [
-  { file: 'bergeerd.png', width: 3355, height: 3076 },
-  { file: 'comode.png', width: 1468, height: 928 },
-  { file: 'fam.PNG', width: 2363, height: 2363 },
-  { file: 'sara.PNG', width: 3724, height: 2050 },
-  { file: 'shayan.PNG', width: 1600, height: 1645 },
+  { file: 'bergeerd.png', width: 1920, height: 1760 },
+  { file: 'comode.png', width: 800, height: 506 },
+  { file: 'fam.PNG', width: 800, height: 800 },
+  { file: 'sara.PNG', width: 800, height: 440 },
+  { file: 'shayan.PNG', width: 778, height: 800 },
   { file: 'zirvah.PNG', width: 1181, height: 1181 },
 ]);
 
@@ -289,16 +297,16 @@ export const sponsors = sponsorImages.map((img, i) => ({
 // --- Home page: hero slider -------------------------------------------------
 /** 5 hero backgrounds for the home page main slider. */
 export const heroSliderImages = local('home_section_1', [
-  { file: 'home_1.jpg', width: 1920, height: 1080 },
-  { file: 'home_2.jpg', width: 1920, height: 1080 },
-  { file: 'home_3.jpg', width: 1920, height: 1080 },
-  { file: 'home_4.jpg', width: 1920, height: 1080 },
-  { file: 'home_5.jpg', width: 1920, height: 1080 },
+  { file: 'home_1.jpg', width: 1920, height: 2880 },
+  { file: 'home_2.jpg', width: 1920, height: 2165 },
+  { file: 'home_3.jpg', width: 1706, height: 2560 },
+  { file: 'home_4.jpg', width: 3024, height: 4032 },
+  { file: 'home_5.jpg', width: 3024, height: 4032 },
 ]);
 
 /** 3 images for the "More than a club — a movement" intro collage. */
 export const introCollageImages = local('home_section_2', [
-  { file: '1.jpg', width: 1080, height: 1350 },
-  { file: '2.jpg', width: 1080, height: 1350 },
-  { file: '3.jpg', width: 1080, height: 1350 },
+  { file: '1.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: '2.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: '3.jpg', width: 1200, height: 1600, thumb: { width: 800, height: 1067 } },
 ]);
