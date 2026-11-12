@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SmartImage } from '@/components/ui/SmartImage';
 import { GlassButton } from '@/components/ui/GlassButton';
 import type { ImageItem } from '@/lib/images';
+import { instagramProfileUrl } from '@/lib/links';
 
 interface EventCardProps {
   image: ImageItem;
@@ -20,6 +21,8 @@ interface EventCardProps {
   /** Where the CTA button links. Defaults to `/events`. */
   ctaHref?: string;
   priority?: boolean;
+  /** Optional extra content (e.g. a photo grid) rendered at the card bottom. */
+  footer?: React.ReactNode;
 }
 
 /**
@@ -43,6 +46,7 @@ export function EventCard({
   ctaLabel,
   ctaHref = '/events',
   priority = false,
+  footer,
 }: EventCardProps) {
   const statusText = status ?? '';
   const isOpen = statusText.toLowerCase().includes('open') || statusText.includes('باز');
@@ -108,7 +112,16 @@ export function EventCard({
           </div>
         )}
         <h3 className="text-lg font-bold leading-snug tracking-tight sm:text-xl">{title}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{desc}</p>
+        <div className="mt-2 space-y-3 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
+          {desc
+            .split(/\n\s*\n/)
+            .filter((para) => para.trim())
+            .map((para, i) => (
+              <p key={i}>
+                <LinkedText text={para} />
+              </p>
+            ))}
+        </div>
         <div className="mt-auto flex items-center justify-between gap-3 pt-5">
           {distance ? (
             <span className="text-sm font-semibold">{distance}</span>
@@ -120,7 +133,35 @@ export function EventCard({
           </GlassButton>
         </div>
       </div>
+
+      {footer && (
+        <div className="border-t border-ink-900/10 p-5 dark:border-white/10 sm:p-6">{footer}</div>
+      )}
     </article>
+  );
+}
+
+/** Renders text with `@handle` mentions linked to their Instagram profiles. */
+function LinkedText({ text }: { text: string }) {
+  const parts = text.split(/(@[A-Za-z0-9_](?:[A-Za-z0-9_.]*[A-Za-z0-9_])?)/);
+  return (
+    <>
+      {parts.map((part, i) =>
+        i % 2 === 1 ? (
+          <a
+            key={i}
+            href={instagramProfileUrl(part.slice(1))}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-ink-900 underline-offset-4 hover:underline dark:text-white"
+          >
+            {part}
+          </a>
+        ) : (
+          part
+        ),
+      )}
+    </>
   );
 }
 

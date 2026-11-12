@@ -42,7 +42,8 @@ const variantMap: Record<Variant, string> = {
 
 /**
  * Glassmorphism button with an animated sheen. Renders as <a> (via next/link)
- * when `href` is provided, otherwise a native <button>.
+ * when `href` is provided (a plain new-tab <a> for external http(s) URLs),
+ * otherwise a native <button>.
  */
 export const GlassButton = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
@@ -74,6 +75,21 @@ export const GlassButton = forwardRef<
 
   if ('href' in rest && rest.href !== undefined) {
     const { href, prefetch, ...linkRest } = rest;
+    // External URLs (e.g. Instagram DM) open in a new tab via a plain <a>.
+    if (/^https?:\/\//.test(href)) {
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`group ${classes}`}
+          {...(linkRest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {inner}
+        </a>
+      );
+    }
     return (
       <Link
         ref={ref as React.Ref<HTMLAnchorElement>}

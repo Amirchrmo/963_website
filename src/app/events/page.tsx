@@ -7,13 +7,21 @@ import { Reveal, RevealStagger, revealItem } from '@/components/animations/Revea
 import { CTABanner } from '@/components/sections/CTABanner';
 import { EventCard } from '@/components/cards/EventCard';
 import { EventGallery } from '@/components/gallery/EventGallery';
+import { PhotoRows } from '@/components/gallery/PhotoRows';
 import { motion } from 'framer-motion';
 import {
   eventImages,
   galleryImages,
+  heroSliderImages,
   caveRunImages,
   coffeeRunImages,
+  nightRunImages,
+  pastEventCovers,
+  walkTalkCover,
+  walkTalkPhotoRows,
+  type ImageItem,
 } from '@/lib/images';
+import { INSTAGRAM_DM_URL } from '@/lib/links';
 
 /** Render a multi-line string as separated paragraphs. */
 function MultiLine({ text, className = '' }: { text: string; className?: string }) {
@@ -33,19 +41,30 @@ function MultiLine({ text, className = '' }: { text: string; className?: string 
 }
 
 // Upcoming events displayed at the top of the Events page.
-const UPCOMING = [
+const UPCOMING: {
+  title: string;
+  location: string;
+  distance?: string;
+  status?: string;
+  desc: string;
+  image: ImageItem;
+  /** Optional photo rows shown at the bottom of the card. */
+  photoRows?: ImageItem[][];
+}[] = [
   {
-    title: 'Coffee + Night Run',
-    location: 'Shorabil Lake',
-    distance: '3km',
+    title: 'WALK&TALK',
+    location: 'Comode cafe',
     status: 'Open',
-    desc: 'Lace up as the sun goes down and join us for a relaxed 3km loop around Shorabil Lake, capped off with warm coffee and good company under the stars.',
+    desc: 'Enjoy a coffee experience at @comode.concept with a walking conversation in English with an international English teacher @sarasenglishcorner\n\nJoin TEAM963',
+    image: walkTalkCover,
+    photoRows: walkTalkPhotoRows,
   },
   {
     title: 'Breakfast + Coffee Run',
     location: 'Nature',
     status: 'Open',
     desc: 'A refreshing morning run through nature followed by coffee and breakfast together. Start your day moving, then refuel and connect with fellow runners.',
+    image: eventImages[1] ?? eventImages[0],
   },
 ];
 
@@ -53,9 +72,9 @@ export default function EventsPage() {
   const { dict } = useI18n();
   const e = dict.events;
 
-  const ctaImg = eventImages[eventImages.length - 2] ?? eventImages[0];
-  // Map each past event to its own gallery.
-  const pastGalleries = [caveRunImages, coffeeRunImages];
+  const ctaImg = heroSliderImages[1] ?? eventImages[0];
+  // Map each past event (dict order) to its own gallery.
+  const pastGalleries = [caveRunImages, coffeeRunImages, nightRunImages];
 
   return (
     <>
@@ -70,19 +89,23 @@ export default function EventsPage() {
       <section className="section">
         <div className="container">
           <SectionHeading eyebrow={e.upcomingEyebrow} title={e.upcomingTitle} className="mb-12" />
-          <RevealStagger className="grid gap-6 md:grid-cols-2" staggerChildren={0.12}>
+          {/* items-start: a card with photo rows is taller; the other keeps its natural height. */}
+          <RevealStagger className="grid gap-6 md:grid-cols-2 md:items-start" staggerChildren={0.12}>
             {UPCOMING.map((ev, i) => (
               <motion.div key={i} variants={revealItem}>
                 <EventCard
-                  image={eventImages[i] ?? eventImages[0]}
+                  image={ev.image}
                   title={ev.title}
                   location={ev.location}
                   distance={ev.distance}
                   status={ev.status}
                   desc={ev.desc}
                   ctaLabel={e.registerCta}
-                  ctaHref="/contact"
+                  ctaHref={INSTAGRAM_DM_URL}
                   priority={i === 0}
+                  footer={
+                    ev.photoRows ? <PhotoRows rows={ev.photoRows} idPrefix={`upcoming-${i}`} /> : undefined
+                  }
                 />
               </motion.div>
             ))}
@@ -101,9 +124,10 @@ export default function EventsPage() {
                 <article className="overflow-hidden rounded-[2rem] glass-panel">
                   {/* Header */}
                   <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-[auto_1fr] md:items-center md:gap-8 lg:p-10">
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl md:aspect-[4/3] md:w-64 lg:w-72">
+                    {/* 4/5 frame so portrait event posters show in full. */}
+                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl md:w-64 lg:w-72">
                       <img
-                        src={(pastGalleries[i]?.[0] ?? eventImages[0]).thumb}
+                        src={(pastEventCovers[i] ?? pastGalleries[i]?.[0] ?? eventImages[0]).thumb}
                         alt={ev.title}
                         loading={i === 0 ? 'eager' : 'lazy'}
                         decoding="async"
@@ -145,7 +169,7 @@ export default function EventsPage() {
         eyebrow={e.registerCta}
         title={e.title}
         body={e.subtitle}
-        primary={{ label: e.registerCta, href: '/contact' }}
+        primary={{ label: e.registerCta, href: INSTAGRAM_DM_URL }}
         secondary={{ label: dict.nav.gallery, href: '/gallery' }}
       />
     </>

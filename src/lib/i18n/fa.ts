@@ -67,10 +67,9 @@ const fa: Dictionary = {
     eventsTitle: 'رویدادهای پیش‌رو',
     homeEvents: [
       {
-        title: 'قهوه + دونده شبانه',
-        location: 'دریاچه شورابیل',
-        distance: '۳ کیلومتر',
-        desc: 'همین‌که خورشید غروب می‌کند کفش‌ها را ببندید و در یک دور آرام ۳ کیلومتری حول دریاچه شورابیل همراه ما باشید؛ سپس زیر نور ستاره‌ها با قهوه‌ی گرم و همدمی خوب شب را تمام کنید.',
+        title: 'WALK&TALK',
+        location: 'Comode cafe',
+        desc: 'تجربه قهوه در @comode.concept همراه با گفت‌وگوی انگلیسی در حین پیاده‌روی با مدرس بین‌المللی زبان انگلیسی @sarasenglishcorner\n\nبه TEAM963 بپیوندید',
       },
       {
         title: 'صبحانه + دونده قهوه',
@@ -216,6 +215,14 @@ const fa: Dictionary = {
           'در این ایونت، مسیر ما به جنگل‌های بکر فندقلو رسید؛ جایی که تجربه قهوه تخصصی و دویدن در طبیعت در یک فضای مشترک کنار هم قرار گرفتند.\n\nبرنامه با سرو و آشنایی با قهوه تخصصی آغاز شد و سپس با یک ران گروهی در میان مسیرهای سبز و آرامش‌بخش جنگل ادامه یافت.\n\nتجربه‌ای طراحی‌شده برای ترکیب حرکت، طبیعت و ارتباط؛ فراتر از یک تمرین، یک تجربه ماندگار.',
         enDesc:
           'Fandoghlo Coffee Run Experience\n\nThis event took us into the pristine landscapes of Fandoghlo Forest, where specialty coffee and trail running came together in a unique outdoor experience.\n\nThe journey began with a specialty coffee session, followed by a group run through the peaceful and scenic forest trails.\n\nAn experience designed to combine movement, nature, and connection — more than a workout, a lasting memory.',
+      },
+      {
+        title: 'دویدن شبانه + قهوه',
+        name: 'دویدن ساعت ۹ شب در شورابیل',
+        faDesc:
+          '۴ مهر، در هوای زیبای اردبیل کنار دریاچه شورابیل دور هم جمع شدیم. بعد از نوشیدن نوشیدنی‌های تخصصی FAM و ثبت عکس‌های پرتره از ورزشکاران توسط فرید موسوی، با دوست عزیزمون حسین صالحی گرم کردیم.\n\nبعد با TEAM963، با عشق ۳ کیلومتر دویدیم.\n\nلذت تجربه عکاسی، قهوه و دویدن دور شورابیل با TEAM963 🧬',
+        enDesc:
+          'On September 26, we gathered around Shorabil Lake, enjoying the beautiful weather in Ardabil. After having FAM\'s specialty drinks and taking portrait photos of the athletes by Farid Mousavi, we started warming up with our dear friend Hossein Salehi.\n\nThen, we ran 3 kilometers with TEAM963, with love.\n\nThe joy of experiencing photography, coffee, and running around Shorabil with TEAM963 🧬',
       },
     ],
   },

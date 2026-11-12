@@ -5,6 +5,7 @@ import { PageHero } from '@/components/layout/PageHero';
 import { Reveal } from '@/components/animations/Reveal';
 import { TextReveal } from '@/components/animations/TextReveal';
 import { galleryImages } from '@/lib/images';
+import { INSTAGRAM_DM_URL } from '@/lib/links';
 
 export default function ContactPage() {
   const { dict } = useI18n();
@@ -118,7 +119,7 @@ export default function ContactPage() {
                   <div className="mt-1 font-medium">{c.instagramHandle}</div>
                 </div>
                 <a
-                  href="https://ig.me/m/963runningclub"
+                  href={INSTAGRAM_DM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-solid mt-2 w-fit rounded-2xl px-6 py-3 text-sm font-semibold"
