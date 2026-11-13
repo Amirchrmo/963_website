@@ -153,30 +153,43 @@ export const galleryChampImages = local('champ', [
 ]);
 
 // --- Products --------------------------------------------------------------
+/** T&F tank tops — also used as the Products page hero / CTA imagery. */
 export const productImages = local('products', [
   { file: 'IMG_1060.jpg', width: 1254, height: 1254 },
   { file: 'IMG_1061.jpg', width: 1254, height: 1254 },
   { file: 'IMG_1062.jpg', width: 1254, height: 1254 },
   { file: 'IMG_1063.jpg', width: 1254, height: 1254 },
 ]);
+const [tankWhiteFront, tankBlackBack, tankBlackFront, tankWhiteBack] = productImages;
+
+const shirts = local('products', [
+  { file: 'nine-white.jpg', width: 1086, height: 1448, thumb: { width: 800, height: 1067 } },
+  { file: 'nine-white-back.jpg', width: 1086, height: 1448, thumb: { width: 800, height: 1067 } },
+  { file: 'nine-blue.jpg', width: 1086, height: 1448, thumb: { width: 800, height: 1067 } },
+  { file: 'nine-blue-back.jpg', width: 1086, height: 1448, thumb: { width: 800, height: 1067 } },
+  { file: 'six-front.jpg', width: 1086, height: 1448, thumb: { width: 800, height: 1067 } },
+  { file: 'six-back.jpg', width: 1086, height: 1448, thumb: { width: 800, height: 1067 } },
+  { file: 'six-black.jpg', width: 1254, height: 1254, thumb: { width: 800, height: 800 } },
+  { file: 'six-black-back.jpg', width: 1254, height: 1254, thumb: { width: 800, height: 800 } },
+]);
+const shirt = (id: string) => shirts.find((s) => s.id === id)!;
+
+export interface ProductShots {
+  front: ImageItem;
+  back: ImageItem;
+}
+
+/** Front/back photos per product, keyed by `dict.products.items[].id`. */
+export const productShots: Record<string, ProductShots> = {
+  'nine-white': { front: shirt('nine-white'), back: shirt('nine-white-back') },
+  'nine-blue': { front: shirt('nine-blue'), back: shirt('nine-blue-back') },
+  'tank-black': { front: tankBlackFront, back: tankBlackBack },
+  'tank-white': { front: tankWhiteFront, back: tankWhiteBack },
+  'six-white': { front: shirt('six-front'), back: shirt('six-back') },
+  'six-black': { front: shirt('six-black'), back: shirt('six-black-back') },
+};
 
 // --- Events ----------------------------------------------------------------
-// General event images (used for hero banners / card imagery).
-export const eventImages = local('events', [
-  { file: 'IMG_0616.jpg', width: 2560, height: 1920, thumb: { width: 1067, height: 800 } },
-  { file: 'IMG_0665.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
-  { file: 'IMG_0696.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
-  { file: 'IMG_0711.jpg', width: 1336, height: 2048, thumb: { width: 800, height: 1226 } },
-  { file: 'IMG_8950.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_8954.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_8999.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
-  { file: 'IMG_9002.jpg', width: 2048, height: 1152, thumb: { width: 1400, height: 788 } },
-  { file: 'IMG_9003.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_9007.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_9016.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_9017.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
-]);
-
 /** Upcoming event — WALK&TALK: card poster + photo rows shown inside the card. */
 export const [walkTalkCover] = local('events/walk-talk', [
   { file: 'IMG_4732.jpg', width: 1280, height: 1600 },
@@ -192,8 +205,24 @@ const walkTalkPhotos = local('events/walk-talk', [
 /** Rows of 2 then 4 photos. */
 export const walkTalkPhotoRows = [walkTalkPhotos.slice(0, 2), walkTalkPhotos.slice(2)];
 
-/** Past event #1 — CaveRun (Kanzagh Village). ~10 photos. */
-export const caveRunImages = local('events', [
+/** Past event #1 — CaveRun (Kanzagh Village): every photo in `events/cave-run/`. */
+export const caveRunImages = local('events/cave-run', [
+  { file: 'IMG_8950.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_8954.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_8999.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+  { file: 'IMG_9002.jpg', width: 2048, height: 1152, thumb: { width: 1400, height: 788 } },
+  { file: 'IMG_9003.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9007.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9016.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
+  { file: 'IMG_9017.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
+]);
+
+/** Past event #2 — CoffeeRun (Fandoghlo Forest): every photo in `events/coffee-run/`. */
+export const coffeeRunImages = local('events/coffee-run', [
+  { file: 'IMG_0616.jpg', width: 2560, height: 1920, thumb: { width: 1067, height: 800 } },
+  { file: 'IMG_0665.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_0696.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
+  { file: 'IMG_0711.jpg', width: 1336, height: 2048, thumb: { width: 800, height: 1226 } },
   { file: 'IMG_0753.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
   { file: 'IMG_0757.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
   { file: 'IMG_0758.jpg', width: 1706, height: 2560, thumb: { width: 800, height: 1200 } },
@@ -207,21 +236,8 @@ export const caveRunImages = local('events', [
   { file: 'IMG_0776.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
 ]);
 
-/** Past event #2 — CoffeeRun (Fandoghlo Forest). ~10 photos. */
-export const coffeeRunImages = local('events', [
-  { file: 'IMG_0616.jpg', width: 2560, height: 1920, thumb: { width: 1067, height: 800 } },
-  { file: 'IMG_0665.jpg', width: 1536, height: 2048, thumb: { width: 800, height: 1067 } },
-  { file: 'IMG_0696.jpg', width: 3024, height: 4032, thumb: { width: 800, height: 1067 } },
-  { file: 'IMG_0711.jpg', width: 1336, height: 2048, thumb: { width: 800, height: 1226 } },
-  { file: 'IMG_8950.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_8954.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_8999.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
-  { file: 'IMG_9002.jpg', width: 2048, height: 1152, thumb: { width: 1400, height: 788 } },
-  { file: 'IMG_9003.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_9007.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_9016.jpg', width: 2048, height: 1365, thumb: { width: 1200, height: 800 } },
-  { file: 'IMG_9017.jpg', width: 1365, height: 2048, thumb: { width: 800, height: 1200 } },
-]);
+/** General event imagery (Events page hero / fallbacks). */
+export const eventImages = [...coffeeRunImages, ...caveRunImages];
 
 /** Past event #3 — Night Run + Coffee (Shorabil, 9pm). */
 export const nightRunImages = local('events/night-run', [
@@ -240,12 +256,11 @@ export const nightRunImages = local('events/night-run', [
   { file: 'IMG_6008.jpg', width: 2048, height: 1536, thumb: { width: 1067, height: 800 } },
 ]);
 
-/** Header (poster) images for the past events, in `dict.events.pastEvents` order. */
+/** Cover images for the past events, in `dict.events.pastEvents` order. */
 export const pastEventCovers = [
-  // CaveRun — first photo of its gallery.
-  caveRunImages[0],
-  // CoffeeRun — event poster.
-  ...local('events', [{ file: 'IMG_0610.jpg', width: 1001, height: 1334 }]),
+  // CaveRun / CoffeeRun — a photo from the event's own folder.
+  caveRunImages.find((i) => i.id === 'IMG_9003') ?? caveRunImages[0],
+  coffeeRunImages.find((i) => i.id === 'IMG_0757') ?? coffeeRunImages[0],
   // Night Run + Coffee — event poster.
   ...local('events/night-run', [{ file: 'IMG_3653.jpg', width: 1280, height: 1600 }]),
 ];

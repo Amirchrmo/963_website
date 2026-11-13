@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { I18nProvider } from '@/components/providers/I18nProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { MobileTabBar } from '@/components/layout/MobileTabBar';
 import { ServiceWorkerRegister } from '@/components/pwa/ServiceWorkerRegister';
 import { PageLoader } from '@/components/pwa/PageLoader';
 import { SAMPLE_IMAGE } from '@/lib/images';
@@ -105,6 +106,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  // Lets the tab bar / header use env(safe-area-inset-*) on notched phones.
+  viewportFit: 'cover',
 };
 
 const jsonLd = {
@@ -158,6 +161,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </main>
             <Footer />
+            <MobileTabBar />
             <ServiceWorkerRegister />
           </I18nProvider>
         </ThemeProvider>

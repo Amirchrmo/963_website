@@ -199,6 +199,8 @@ const fa: Dictionary = {
     pastEyebrow: 'ثبت‌شده',
     pastTitle: 'رویدادهای گذشته',
     registerCta: 'همین حالا ثبت‌نام کنید',
+    details: 'جزئیات',
+    photos: 'عکس',
     pastEvents: [
       {
         title: 'دونده غار',
@@ -245,13 +247,15 @@ const fa: Dictionary = {
     title: 'محصولات',
     subtitle: 'تجهیزات ممتازی که توسط دونده‌ها برای دونده‌ها طراحی شده‌اند.',
     featuredTitle: 'مجموعه برگزیده',
+    front: 'جلو',
+    back: 'پشت',
     items: [
-      { name: '“SIX” white&blue', price: '1.880T', desc: 'size 1 and size 2' },
-      { name: '“SIX” blue&white', price: '1.880T', desc: 'size 1 and size 2' },
-      { name: '“T&F” tank top black', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
-      { name: '“T&F” tank top white', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
-      { name: '“NINE” white&red', price: '1.690T', desc: 'size 1 and size 2' },
-      { name: '“NINE” black&red', price: '1.690T', desc: 'size 1 and size 2' },
+      { id: 'nine-white', name: '“NINE” white&blue', price: '1.880T', desc: 'size 1 and size 2' },
+      { id: 'nine-blue', name: '“NINE” blue&white', price: '1.880T', desc: 'size 1 and size 2' },
+      { id: 'tank-black', name: '“T&F” tank top black', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
+      { id: 'tank-white', name: '“T&F” tank top white', price: '1.180T', desc: 'size1,size2,size3,size4,size5' },
+      { id: 'six-white', name: '“SIX” white&red', price: '1.690T', desc: 'size 1 and size 2' },
+      { id: 'six-black', name: '“SIX” black&red', price: '1.690T', desc: 'size 1 and size 2' },
     ],
   },
   sponsors: {

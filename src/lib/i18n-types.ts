@@ -144,6 +144,10 @@ export interface Dictionary {
     pastEyebrow: string;
     pastTitle: string;
     registerCta: string;
+    /** Opens an event's detail sheet. */
+    details: string;
+    /** Suffix for the photo count, e.g. "12 photos". */
+    photos: string;
     /** Past events rendered with bilingual descriptions + photo galleries. */
     pastEvents: PastEvent[];
   };
@@ -166,7 +170,11 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     featuredTitle: string;
-    items: { name: string; price: string; desc: string }[];
+    /** Labels for the front/back photo switch on product cards. */
+    front: string;
+    back: string;
+    /** `id` keys the item's photos in `productShots` (src/lib/images.ts). */
+    items: { id: string; name: string; price: string; desc: string }[];
   };
   sponsors: {
     title: string;

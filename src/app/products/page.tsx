@@ -6,14 +6,14 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { CTABanner } from '@/components/sections/CTABanner';
 import { ProductCard } from '@/components/cards/ProductCard';
 import { Reveal } from '@/components/animations/Reveal';
-import { productImages, galleryImages } from '@/lib/images';
+import { productImages, productShots, galleryImages } from '@/lib/images';
 
 export default function ProductsPage() {
   const { dict } = useI18n();
   const p = dict.products;
 
-  // Map product items to images cyclically.
-  const items = p.items.map((item, i) => ({ ...item, image: productImages[i % productImages.length] }));
+  // Each product shows its own front/back photos (keyed by item id).
+  const items = p.items.filter((item) => productShots[item.id]);
   const ctaImg = productImages[1] ?? productImages[0];
 
   return (
@@ -32,14 +32,16 @@ export default function ProductsPage() {
           {/* Product grid — 2 columns on mobile, up to 4 on large screens. */}
           <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {items.map((item, i) => (
-              <Reveal key={item.name} direction="up" delay={Math.min(i * 0.06, 0.4)}>
+              <Reveal key={item.id} direction="up" delay={Math.min(i * 0.06, 0.4)} className="h-full">
                 <ProductCard
-                  image={item.image}
+                  shots={productShots[item.id]}
                   name={item.name}
                   price={item.price}
                   desc={item.desc}
                   buyLabel={dict.common.buyNow}
-                  index={i}
+                  frontLabel={p.front}
+                  backLabel={p.back}
+                  priority={i < 2}
                 />
               </Reveal>
             ))}

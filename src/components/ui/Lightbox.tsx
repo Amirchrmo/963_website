@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { ImageItem } from '@/lib/images';
+import { lockScroll } from '@/lib/scroll-lock';
 
 interface LightboxProps {
   images: ImageItem[];
@@ -38,10 +39,10 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
       if (e.key === 'ArrowLeft') go(-1);
     };
     window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
+    const unlock = lockScroll();
     return () => {
       window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
+      unlock();
     };
   }, [open, go, onClose]);
 
@@ -63,6 +64,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
       {open && current && (
         <motion.div
           className="fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-xl"
+          data-lightbox=""
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

@@ -1,14 +1,20 @@
 'use client';
 
+import { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useI18n } from '@/components/providers/I18nProvider';
 import { PageHero } from '@/components/layout/PageHero';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Reveal, RevealStagger, revealItem } from '@/components/animations/Reveal';
+import { RevealStagger, revealItem } from '@/components/animations/Reveal';
 import { CTABanner } from '@/components/sections/CTABanner';
-import { EventCard } from '@/components/cards/EventCard';
-import { EventGallery } from '@/components/gallery/EventGallery';
-import { PhotoRows } from '@/components/gallery/PhotoRows';
-import { motion } from 'framer-motion';
+import { UpcomingEventCard } from '@/components/events/UpcomingEventCard';
+import { PastEventCard } from '@/components/events/PastEventCard';
+import {
+  PastEventSheet,
+  UpcomingEventSheet,
+  type PastEventData,
+  type UpcomingEventData,
+} from '@/components/events/EventSheets';
 import {
   eventImages,
   galleryImages,
@@ -19,44 +25,17 @@ import {
   pastEventCovers,
   walkTalkCover,
   walkTalkPhotoRows,
-  type ImageItem,
 } from '@/lib/images';
 import { INSTAGRAM_DM_URL } from '@/lib/links';
 
-/** Render a multi-line string as separated paragraphs. */
-function MultiLine({ text, className = '' }: { text: string; className?: string }) {
-  return (
-    <>
-      {text.split('\n').map((line, i) =>
-        line.trim() === '' ? (
-          <span key={i} className="block h-3" aria-hidden="true" />
-        ) : (
-          <span key={i} className={`block ${className}`}>
-            {line}
-          </span>
-        ),
-      )}
-    </>
-  );
-}
-
 // Upcoming events displayed at the top of the Events page.
-const UPCOMING: {
-  title: string;
-  location: string;
-  distance?: string;
-  status?: string;
-  desc: string;
-  image: ImageItem;
-  /** Optional photo rows shown at the bottom of the card. */
-  photoRows?: ImageItem[][];
-}[] = [
+const UPCOMING: UpcomingEventData[] = [
   {
     title: 'WALK&TALK',
     location: 'Comode cafe',
     status: 'Open',
     desc: 'Enjoy a coffee experience at @comode.concept with a walking conversation in English with an international English teacher @sarasenglishcorner\n\nJoin TEAM963',
-    image: walkTalkCover,
+    poster: walkTalkCover,
     photoRows: walkTalkPhotoRows,
   },
   {
@@ -64,17 +43,29 @@ const UPCOMING: {
     location: 'Nature',
     status: 'Open',
     desc: 'A refreshing morning run through nature followed by coffee and breakfast together. Start your day moving, then refuel and connect with fellow runners.',
-    image: eventImages[1] ?? eventImages[0],
+    poster: 'logo',
   },
 ];
+
+// Galleries for `dict.events.pastEvents`, in the same order.
+const PAST_GALLERIES = [caveRunImages, coffeeRunImages, nightRunImages];
 
 export default function EventsPage() {
   const { dict } = useI18n();
   const e = dict.events;
 
   const ctaImg = heroSliderImages[1] ?? eventImages[0];
-  // Map each past event (dict order) to its own gallery.
-  const pastGalleries = [caveRunImages, coffeeRunImages, nightRunImages];
+  const past = useMemo<PastEventData[]>(
+    () =>
+      e.pastEvents.map((ev, i) => {
+        const photos = PAST_GALLERIES[i] ?? [];
+        return { ...ev, photos, cover: pastEventCovers[i] ?? photos[0] ?? eventImages[0] };
+      }),
+    [e.pastEvents],
+  );
+
+  const [openUpcoming, setOpenUpcoming] = useState<number | null>(null);
+  const [openPast, setOpenPast] = useState<number | null>(null);
 
   return (
     <>
@@ -85,27 +76,31 @@ export default function EventsPage() {
         subtitle={e.subtitle}
       />
 
-      {/* ===== UPCOMING (visually prioritized at the top) ===== */}
+      {/* ===== UPCOMING — swipeable cards on phones, grid from md ===== */}
       <section className="section">
         <div className="container">
-          <SectionHeading eyebrow={e.upcomingEyebrow} title={e.upcomingTitle} className="mb-12" />
-          {/* items-start: a card with photo rows is taller; the other keeps its natural height. */}
-          <RevealStagger className="grid gap-6 md:grid-cols-2 md:items-start" staggerChildren={0.12}>
+          <SectionHeading eyebrow={e.upcomingEyebrow} title={e.upcomingTitle} className="mb-8 md:mb-12" />
+          <RevealStagger
+            className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 sm:-mx-6 sm:scroll-px-6 sm:px-6 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0"
+            staggerChildren={0.12}
+          >
             {UPCOMING.map((ev, i) => (
-              <motion.div key={i} variants={revealItem}>
-                <EventCard
-                  image={ev.image}
+              <motion.div
+                key={ev.title}
+                variants={revealItem}
+                className="w-[84%] max-w-sm shrink-0 snap-start xs:w-[70%] md:w-auto md:max-w-none"
+              >
+                <UpcomingEventCard
+                  poster={ev.poster}
                   title={ev.title}
                   location={ev.location}
-                  distance={ev.distance}
                   status={ev.status}
                   desc={ev.desc}
+                  detailsLabel={e.details}
                   ctaLabel={e.registerCta}
                   ctaHref={INSTAGRAM_DM_URL}
+                  onOpen={() => setOpenUpcoming(i)}
                   priority={i === 0}
-                  footer={
-                    ev.photoRows ? <PhotoRows rows={ev.photoRows} idPrefix={`upcoming-${i}`} /> : undefined
-                  }
                 />
               </motion.div>
             ))}
@@ -113,56 +108,38 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* ===== PAST EVENTS (each with bilingual desc + gallery) ===== */}
-      <section className="section">
+      {/* ===== PAST — list rows on phones, card grid from md ===== */}
+      <section className="section pt-0 md:pt-0 lg:pt-0">
         <div className="container">
-          <SectionHeading eyebrow={e.pastEyebrow} title={e.pastTitle} className="mb-14" />
-
-          <div className="space-y-20">
-            {e.pastEvents.map((ev, i) => (
-              <Reveal key={i} direction="up">
-                <article className="overflow-hidden rounded-[2rem] glass-panel">
-                  {/* Header */}
-                  <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-[auto_1fr] md:items-center md:gap-8 lg:p-10">
-                    {/* 4/5 frame so portrait event posters show in full. */}
-                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl md:w-64 lg:w-72">
-                      <img
-                        src={(pastEventCovers[i] ?? pastGalleries[i]?.[0] ?? eventImages[0]).thumb}
-                        alt={ev.title}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                        decoding="async"
-                        className="h-full w-full object-cover"
-                        draggable={false}
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-black tracking-tight sm:text-3xl">{ev.title}</h3>
-                      <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-ink-400">
-                        {ev.name}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Descriptions — Persian first, English below */}
-                  <div className="grid gap-6 px-6 pb-6 sm:px-8 md:grid-cols-2 md:gap-10 lg:px-10 lg:pb-8">
-                    <div className="font-fa text-pretty text-base leading-loose text-ink-600 dark:text-ink-300" dir="rtl">
-                      <MultiLine text={ev.faDesc} />
-                    </div>
-                    <div className="text-pretty text-sm leading-relaxed text-ink-500 dark:text-ink-400 md:text-base">
-                      <MultiLine text={ev.enDesc} />
-                    </div>
-                  </div>
-
-                  {/* Gallery */}
-                  <div className="border-t border-ink-900/10 p-6 dark:border-white/10 sm:p-8 lg:p-10">
-                    <EventGallery images={pastGalleries[i] ?? []} idPrefix={`event-${i}`} />
-                  </div>
-                </article>
-              </Reveal>
+          <SectionHeading eyebrow={e.pastEyebrow} title={e.pastTitle} className="mb-8 md:mb-12" />
+          <RevealStagger className="grid gap-3 md:grid-cols-3 md:gap-6" staggerChildren={0.08}>
+            {past.map((ev, i) => (
+              <motion.div key={ev.title} variants={revealItem}>
+                <PastEventCard
+                  cover={ev.cover}
+                  title={ev.title}
+                  name={ev.name}
+                  photos={ev.photos}
+                  photosLabel={e.photos}
+                  onOpen={() => setOpenPast(i)}
+                />
+              </motion.div>
             ))}
-          </div>
+          </RevealStagger>
         </div>
       </section>
+
+      <UpcomingEventSheet
+        event={openUpcoming !== null ? UPCOMING[openUpcoming] : null}
+        onClose={() => setOpenUpcoming(null)}
+        ctaLabel={e.registerCta}
+        ctaHref={INSTAGRAM_DM_URL}
+      />
+      <PastEventSheet
+        event={openPast !== null ? past[openPast] : null}
+        onClose={() => setOpenPast(null)}
+        photosLabel={e.photos}
+      />
 
       <CTABanner
         image={ctaImg}

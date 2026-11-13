@@ -79,6 +79,16 @@
     }
   }
 
+  /* Native-app feel: no grey tap flash, no double-tap zoom delay. */
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button,
+  [role='button'] {
+    touch-action: manipulation;
+  }
+
   ::selection {
     background: rgb(var(--fg));
     color: rgb(var(--bg));
@@ -140,6 +150,35 @@
     backdrop-filter: blur(16px) saturate(160%);
     -webkit-backdrop-filter: blur(16px) saturate(160%);
     border: 1px solid rgb(var(--glass-border) / 0.08);
+  }
+
+  /* Bottom tab bar (phones) — a denser glass so labels stay legible over
+     photos. */
+  .tabbar {
+    background: rgb(var(--bg) / 0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgb(var(--glass-border) / 0.12);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgb(255 255 255 / 0.08);
+  }
+
+  /* Event / detail sheets. */
+  .sheet-panel {
+    background: rgb(var(--bg) / 0.86);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgb(var(--glass-border) / 0.12);
+    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Press feedback for tappable surfaces (native-style scale-down). */
+  .pressable {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .pressable:active {
+    transform: scale(0.97);
   }
 
   /* ---- Buttons ---- */
@@ -301,7 +340,9 @@
 @media (prefers-reduced-data: reduce) {
   .glass,
   .glass-strong,
-  .glass-panel {
+  .glass-panel,
+  .tabbar,
+  .sheet-panel {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }

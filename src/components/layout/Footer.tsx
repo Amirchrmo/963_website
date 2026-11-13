@@ -17,7 +17,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-ink-900/10 bg-ink-50 dark:border-white/10 dark:bg-ink-950">
+    <footer className="relative overflow-hidden border-t border-ink-900/10 bg-ink-50 pb-[calc(env(safe-area-inset-bottom)+5.5rem)] dark:border-white/10 dark:bg-ink-950 lg:pb-0">
       {/* Decorative top glow */}
       <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-ink-900/30 to-transparent dark:via-white/30" />
 
